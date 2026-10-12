@@ -9183,10 +9183,8 @@ document.getElementById('activity-viewport').addEventListener('click', () => {
 </script>
 <script>
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js', { scope: './' })
-      .then(reg => console.log('[PWA] Service Worker registrado.', reg))
-      .catch(err => console.error('[PWA] Falha ao registrar o Service Worker:', err));
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js', { scope: './' }).catch(function () {});
   });
 }
 </script>
