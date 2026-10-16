@@ -6,7 +6,6 @@
 <title>PixelForge Studio</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1e1e1e">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,7 +13,6 @@
   <meta name="apple-mobile-web-app-title" content="PixelForge">
   <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
   <link rel="apple-touch-icon" href="icon-512.png">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -254,6 +252,9 @@ body {
   background: transparent !important;
 }
 
+/* ======================================================================
+   AUTOCOMPLETE WIDGET
+   ====================================================================== */
 .ac-widget {
   position: fixed; top: 0; left: 0; display: none; align-items: flex-start;
   z-index: 9999; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -303,12 +304,15 @@ body {
   flex: 1; text-align: right; padding-left: 12px; padding-right: 4px;
 }
 .ac-item.focused .ac-detail, .ac-item.selected .ac-detail { display: block; }
+
 .ac-docs {
-  background: #1e1e1e; border: 1px solid #454545; margin-left: -1px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, .55); overflow-y: auto; overflow-x: hidden;
-  padding: 10px 12px; flex: none; position: relative;
+  background: #252526; border: 1px solid #454545; margin-left: -1px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .55);
+  overflow-y: auto; overflow-x: hidden;
+  padding: 12px; flex: none; position: relative;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  font-size: 12.5px; line-height: 1.45; color: #cccccc; border-radius: 2px;
+  font-size: 13px; line-height: 1.4; color: #cccccc; border-radius: 3px;
+  display: flex; flex-direction: column; gap: 8px;
 }
 .ac-docs::-webkit-scrollbar { width: 10px; }
 .ac-docs::-webkit-scrollbar-thumb { background: #4a4a4a; }
@@ -325,6 +329,27 @@ body {
 .docs-empty { color: #6f6f6f; font-style: italic; }
 .docs-source { margin-top: 10px; color: #6f6f6f; font-size: 11px; }
 .docs-source code { color: #75beff; font-family: 'Fira Mono', monospace; }
+
+.hover-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.hover-title { font-weight: 600; color: #ffffff; word-break: break-word; font-family: 'Fira Mono', Consolas, monospace; font-size: 13.5px; }
+.hover-description { color: #cccccc; line-height: 1.4; font-size: 12px; word-break: break-word; white-space: pre-wrap; }
+.hover-separator { height: 1px; background-color: #3f3f46; margin: 4px 0; }
+.hover-meta { display: flex; align-items: center; gap: 6px; font-size: 12px; word-break: break-word; color: #9cdcfe; font-family: 'Fira Mono', Consolas, monospace; }
+
+.monaco-code-block { display: flex; margin-top: 6px; background-color: #1a1a1a; border: 1px solid #2c2c2c; border-radius: 3px; font-family: 'Fira Mono', Consolas, 'Courier New', monospace; font-size: 12px; line-height: 1.5; overflow: hidden; user-select: none; }
+.monaco-code-gutter { width: 38px; padding: 6px 0; background-color: #2a2a2a; color: #858585; text-align: right; padding-right: 8px; flex-shrink: 0; user-select: none; position: relative; white-space: pre; }
+.monaco-code-gutter::after { content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 4px; background: #2f2f2f; pointer-events: none; }
+.monaco-code-text { padding: 6px 10px; color: #d4d4d4; white-space: pre-wrap; word-break: break-all; overflow-x: hidden; flex-grow: 1; }
+
+.token-keyword    { color: #EE6D72; font-weight: bold; }
+.token-identifier { color: #d4d4d4; }
+.token-function   { color: #7990ff; }
+.token-string     { color: #6FD39B; }
+.token-number     { color: #ffff00; font-weight: bold; }
+.token-operator   { color: #d4d4d4; }
+.token-variable   { color: #9cdcfe; }
+.token-comment    { color: #8a8a8a !important; font-style: italic; }
+
 .ac-resize { position: absolute; z-index: 100; background: transparent; touch-action: none; }
 .ac-resize-e       { top: 0; width: 5px; cursor: ew-resize; }
 .ac-resize-e:hover { background: rgba(117, 190, 255, .22); }
@@ -347,7 +372,7 @@ body {
 }
 
 .explorer-window {
-  width: 320px; min-width: 200px; max-width: 50vw;
+  width: 260px; min-width: 180px; max-width: 40vw;
   flex-shrink: 0; height: 100%;
   background-color: rgb(25, 26, 31);
   border-left: 1px solid #1a1a1a;
@@ -824,9 +849,6 @@ body {
 .import-github-modal .modal-error { color: #ff5e5e; font-size: 12px; margin-top: -6px; margin-bottom: 10px; min-height: 14px; }
 .import-github-modal .modal-progress { color: #4fa8d8; font-size: 12px; margin-top: -6px; margin-bottom: 10px; min-height: 14px; }
 
-/* =========================================================================
-   STUDIO TOPBAR (estilo Roblox Studio)
-   ========================================================================= */
 .studio-topbar {
   flex-shrink: 0;
   background: #181818;
@@ -1020,9 +1042,292 @@ body {
 
 .studio-topbar.collapsed .studio-ribbon-content { display: none; }
 .studio-topbar.collapsed .studio-ribbon-tabs { display: none; }
+
+/* ======================================================================
+   SPLASH SCREEN (sem fundo, mensagens trocando rápido)
+   ====================================================================== */
+.pf-splash {
+  position: fixed; inset: 0;
+  background: transparent;          /* <<< sem fundo */
+  z-index: 999999;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #e6e6e6;
+  opacity: 1;
+  transition: opacity 0.45s ease;
+}
+.pf-splash .pf-splash-card { pointer-events: auto; }
+.pf-splash.closing { opacity: 0; pointer-events: none; }
+.pf-splash.hidden  { display: none; }
+
+.pf-splash-card {
+  width: 480px; max-width: calc(100vw - 32px);
+  background: #2b2b2b;
+  border: 1px solid #2c313a;
+  border-radius: 2px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.03);
+  padding: 22px 24px 18px;
+  animation: pfSplashIn 0.4s ease;
+}
+@keyframes pfSplashIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.pf-splash-header {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 18px;
+}
+.pf-splash-icon {
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  background: #14171c;
+  border-radius: 8px;
+  border: 1px solid #2c313a;
+  flex-shrink: 0;
+}
+.pf-splash-icon svg { width: 26px; height: 26px; }
+
+.pf-splash-titles { flex: 1; min-width: 0; }
+.pf-splash-title {
+  font-size: 15px; font-weight: 600; color: #fff;
+  letter-spacing: 0.2px;
+}
+.pf-splash-sub {
+  font-size: 12px; color: #9aa3ad; margin-top: 2px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.pf-splash-spinner {
+  width: 20px; height: 20px;
+  border: 2px solid #2c313a;
+  border-top-color: #4fa8d8;
+  border-radius: 50%;
+  animation: pfSpin 0.9s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes pfSpin { to { transform: rotate(360deg); } }
+
+.pf-splash-bar-wrap {
+  width: 100%; height: 25px;                    /* era 6px */
+  background: #1a1a1a;
+  border-radius: 1px;                           /* metade da altura */
+  overflow: hidden;
+  border: 1px solid #23272f;
+}
+.pf-splash-bar {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, #2b7fff 0%, #4fa8ff 50%, #6bc0ff 100%);
+  border-radius: 1px;
+  transition: width 0.35s cubic-bezier(0.4, 0.0, 0.2, 1);
+  box-shadow: 0 0 14px rgba(79,168,216,0.6);
+  position: relative;
+  overflow: hidden;
+}
+.pf-splash-bar::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);
+  animation: pfShine 1.6s ease-in-out infinite;
+}
+@keyframes pfShine {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.pf-splash-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #9aa3ad;
+  min-height: 18px;
+}
+.pf-splash-msg {
+  flex: 1; min-width: 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  transition: opacity 0.12s ease;
+}
+.pf-splash-msg.flash { opacity: 0; }
+.pf-splash-pct {
+  font-family: 'Fira Mono', monospace;
+  color: #4fa8d8; font-weight: 600;
+  margin-left: 12px;
+}
+
+.pf-splash-actions {
+  display: flex; justify-content: flex-end;
+  margin-top: 14px;
+}
+.pf-splash-btn {
+  padding: 6px 18px;
+  background: #2b7fc4;
+  border: 1px solid #3d8fd4;
+  border-radius: 4px;
+  color: #fff;
+  font-family: inherit; font-size: 12px; font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+.pf-splash-btn:hover:not(:disabled) { background: #3d8fd4; }
+.pf-splash-btn:disabled { opacity: 0.4; cursor: default; }
+
+/* ======================================================================
+   TOOLBOX (painel esquerdo estilo Roblox Studio)
+   ====================================================================== */
+.toolbox-window {
+  width: 260px; min-width: 180px; max-width: 40vw;
+  flex-shrink: 0; height: 100%;
+  background-color: rgb(25, 26, 31);
+  border-right: 1px solid #1a1a1a;
+  display: flex; flex-direction: column;
+  position: relative;
+  box-shadow: 4px 0 15px rgba(0,0,0,0.35);
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 12px; color: #d4d4d4;
+  user-select: none;
+}
+.toolbox-window.hidden { display: none; }
+.toolbox-window .toolbox-resize-handle {
+  position: absolute; right: 0; top: 0; bottom: 0;
+  width: 6px; cursor: ew-resize; z-index: 100;
+  background-color: transparent; transition: background-color 0.2s;
+}
+.toolbox-window .toolbox-resize-handle:hover,
+.toolbox-window .toolbox-resize-handle.active {
+  background-color: rgba(79, 168, 216, 0.5);
+}
+.toolbox-window .header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 6px 10px; background-color: rgb(25, 26, 31);
+  color: #cccccc; flex-shrink: 0;
+}
+.toolbox-window .header-title { font-weight: 500; }
+.toolbox-window .window-controls { display: flex; gap: 8px; color: #888; }
+.toolbox-window .window-controls i { cursor: pointer; }
+.toolbox-window .window-controls i:hover { color: #fff; }
+
+.toolbox-search {
+  padding: 6px; background-color: rgb(25, 26, 31); flex-shrink: 0;
+}
+.toolbox-search input {
+  width: 100%; background-color: #0f1013;
+  border: 1px solid #111; color: #ccc;
+  padding: 4px 8px; border-radius: 2px;
+  outline: none; font-size: 12px; font-family: inherit;
+}
+.toolbox-search input:focus { border-color: #4fa8d8; }
+.toolbox-search input::placeholder { color: #666; }
+
+.toolbox-categories {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  padding: 4px 6px 8px; background-color: rgb(25, 26, 31);
+  border-bottom: 1px solid #1a1a1a; flex-shrink: 0;
+}
+.toolbox-cat {
+  padding: 3px 8px; font-size: 11px; border-radius: 3px;
+  background: #2a2b31; cursor: pointer; color: #aaa;
+  transition: background .12s, color .12s;
+}
+.toolbox-cat:hover { background: #333; color: #ddd; }
+.toolbox-cat.active { background: #094771; color: #fff; }
+
+.toolbox-items {
+  flex: 1; overflow-y: auto; padding: 8px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 6px; align-content: start; min-height: 0;
+}
+.toolbox-items::-webkit-scrollbar { width: 8px; }
+.toolbox-items::-webkit-scrollbar-track { background: rgb(25, 26, 31); }
+.toolbox-items::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+.toolbox-items::-webkit-scrollbar-thumb:hover { background: #555; }
+
+.toolbox-item {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 4px; padding: 8px 4px 6px;
+  border-radius: 4px;
+  background: #1c1d22; border: 1px solid #2a2b31;
+  cursor: pointer; transition: transform .12s, border-color .12s, background .12s;
+  text-align: center;
+}
+.toolbox-item:hover {
+  background: #262830; border-color: #4fa8d8;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+}
+.toolbox-item:active { transform: translateY(0); }
+.toolbox-item .tb-thumb {
+  width: 68px; height: 68px;
+  border-radius: 5px;
+  background: radial-gradient(circle at 35% 25%, #2b2f3a 0%, #171820 70%);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  border: 1px solid #2a2b31;
+  position: relative;
+  flex-shrink: 0;
+}
+.toolbox-item .tb-thumb img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+}
+.toolbox-item .tb-thumb .tb-fallback {
+  font-size: 26px;
+  color: #75beff;
+  line-height: 1;
+}
+.toolbox-item .tb-thumb .tb-loading {
+  width: 18px; height: 18px;
+  border: 2px solid #2c313a;
+  border-top-color: #4fa8d8;
+  border-radius: 50%;
+  animation: pfSpin 0.9s linear infinite;
+}
+.toolbox-item:hover .tb-thumb {
+  border-color: #4fa8d8;
+  box-shadow: 0 0 0 1px rgba(79,168,216,0.35) inset;
+}
+.toolbox-item .tb-name {
+  font-size: 10.5px; color: #ccc; line-height: 1.15;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  width: 100%;
+}
 </style>
 </head>
 <body>
+
+<div class="pf-splash" id="pfSplash">
+  <div class="pf-splash-card">
+    <div class="pf-splash-header">
+      <div class="pf-splash-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#4fa8d8" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M12 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div class="pf-splash-titles">
+        <div class="pf-splash-title" id="pfSplashTitle">PixelForge Studio</div>
+        <div class="pf-splash-sub" id="pfSplashSub">Opening place…</div>
+      </div>
+      <div class="pf-splash-spinner"></div>
+    </div>
+
+    <div class="pf-splash-bar-wrap">
+      <div class="pf-splash-bar" id="pfSplashBar"></div>
+    </div>
+
+    <div class="pf-splash-footer">
+      <div class="pf-splash-msg" id="pfSplashMsg">Starting…</div>
+      <div class="pf-splash-pct" id="pfSplashPct">0%</div>
+    </div>
+
+    <div class="pf-splash-actions">
+      <button class="pf-splash-btn" id="pfSplashSkip" disabled>Skip</button>
+    </div>
+  </div>
+</div>
 
 <div class="studio-topbar" id="studioTopbar">
   <div class="studio-menubar">
@@ -1141,6 +1446,7 @@ body {
       <div class="ribbon-group">
         <div class="ribbon-group-body">
           <button class="ribbon-btn-lg" id="rb-toggle-explorer"><i class="fa-solid fa-folder-tree"></i><span>Explorer</span></button>
+          <button class="ribbon-btn-lg" id="rb-toggle-toolbox"><i class="fa-solid fa-toolbox"></i><span>Toolbox</span></button>
           <button class="ribbon-btn-lg" id="rb-toggle-viewport"><i class="fa-solid fa-cube"></i><span>Viewport</span></button>
         </div>
         <div class="ribbon-group-title">Panels</div>
@@ -1182,7 +1488,7 @@ body {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 2L2 7l10 5 10-5-10-5z"/>
           <path d="M2 17l10 5 10-5"/>
-          <path d="M12 12l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
         </svg>
       </div>
       <div class="activity-icon inactive" id="activity-guibuilder" tabindex="-1" title="GUI Builder">
@@ -1200,9 +1506,27 @@ body {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 2L2 7l10 5 10-5-10-5z"/>
           <path d="M2 17l10 5 10-5"/>
-          <path d="M2 12l10 5 10-5"/>
+          <path d="M12 12l10 5 10-5"/>
         </svg>
       </div>
+        <div class="activity-icon inactive" id="activity-toolbox" tabindex="-1" title="Toolbox">
+        <i class="fa-solid fa-toolbox" style="font-size:20px;"></i>
+      </div>
+    </div>
+
+    <div class="toolbox-window" id="toolboxWindow">
+      <div class="toolbox-resize-handle" id="toolboxResizeHandle"></div>
+      <div class="header">
+        <span class="header-title">Toolbox</span>
+        <div class="window-controls">
+          <i class="fa-solid fa-xmark" id="toolboxClose" title="Fechar"></i>
+        </div>
+      </div>
+      <div class="toolbox-search">
+        <input type="text" id="toolboxSearchInput" placeholder="Buscar modelos..." autocomplete="off" spellcheck="false">
+      </div>
+      <div class="toolbox-categories" id="toolboxCategories"></div>
+      <div class="toolbox-items" id="toolboxItems"></div>
     </div>
 
     <div class="editor-side">
@@ -1500,7 +1824,7 @@ body {
       <svg viewBox="0 0 24 24" fill="none" stroke="#4060ff" stroke-width="2" style="width:20px;height:20px;">
         <path d="M12 2L2 7l10 5 10-5-10-5z"/>
         <path d="M2 17l10 5 10-5"/>
-        <path d="M12 12l10 5 10-5"/>
+        <path d="M2 12l10 5 10-5"/>
       </svg>
       NexusAI
     </div>
@@ -1550,8 +1874,30 @@ body {
 <script type="module">
   import { LuauState } from 'https://cdn.jsdelivr.net/npm/luau-web@1.4.0/src/index.js';
   window.LuauState = LuauState;
-  window.__luauBootPromise = LuauState.createAsync({}).catch(function (e) {
+  window.__luauState = null;
+  window.__luauBootPromise = LuauState.createAsync({
+    print: function () {
+      var a = [];
+      for (var i = 0; i < arguments.length; i++) a.push(String(arguments[i]));
+      console.log(a.join(' '));
+    },
+    warn: function () {
+      var a = [];
+      for (var i = 0; i < arguments.length; i++) a.push(String(arguments[i]));
+      console.warn(a.join(' '));
+    }
+  }).then(function (s) {
+    window.__luauState = s;
+    try {
+      if (window.__Splash) {
+        window.__Splash.setTaskMsg('luau', 'Runtime Luau online');
+        window.__Splash.completeTask('luau');
+      }
+    } catch(e){}
+    return s;
+  }).catch(function (e) {
     console.warn('[luau] boot falhou:', e);
+    try { if (window.__Splash) window.__Splash.completeTask('luau', true); } catch(err){}
     return null;
   });
 </script>
@@ -1561,16 +1907,139 @@ body {
 (function() {
 
 /* ==========================================================================
-   PFORGE_RUNTIME
+   SPLASH SCREEN — gerenciador de boot
+   ========================================================================== */
+const Splash = (function () {
+  const el       = document.getElementById('pfSplash');
+  const elBar    = document.getElementById('pfSplashBar');
+  const elPct    = document.getElementById('pfSplashPct');
+  const elMsg    = document.getElementById('pfSplashMsg');
+  const elSub    = document.getElementById('pfSplashSub');
+  const elSkip   = document.getElementById('pfSplashSkip');
+
+  const tasks = new Map();
+  let   totalWeight = 0;
+  let   doneWeight  = 0;
+  let   closed      = false;
+
+  // Frases que trocam bem rápido, uma após a outra
+  const FLAVOR = [
+    'Acordando o motor de render…',
+    'Aquecendo o sandbox Luau…',
+    'Calibrando os pixels…',
+    'Carregando texturas…',
+    'Compilando shaders…',
+    'Preparando o workspace…',
+    'Sincronizando a árvore…',
+    'Indexando a API do gfx3d…',
+    'Afinando a câmera…',
+    'Conectando ao servidor local…',
+    'Gerando o céu…',
+    'Invocando o Roblox… brincadeira 🙂',
+    'Preparando o Monaco…',
+    'Montando o viewport 3D…',
+    'Ligando os motores…'
+  ];
+  let flavorIdx   = 0;
+  let flavorTimer = null;
+
+  function refresh() {
+    if (closed) return;
+    const pct = totalWeight === 0 ? 0 : Math.min(100, (doneWeight / totalWeight) * 100);
+    elBar.style.width = pct.toFixed(1) + '%';
+    elPct.textContent = Math.floor(pct) + '%';
+    if (pct >= 100) finish();
+  }
+
+  // Troca a mensagem com um fade rápido (some → aparece outra)
+  function swapMsg(text) {
+    elMsg.textContent = text;
+  }
+
+  function startFlavor() {
+    if (flavorTimer) return;
+    // 240ms entre cada frase — troca bem rápido
+    flavorTimer = setInterval(() => {
+      if (closed) { clearInterval(flavorTimer); flavorTimer = null; return; }
+      flavorIdx = (flavorIdx + 1) % FLAVOR.length;
+      swapMsg(FLAVOR[flavorIdx]);
+    }, 240);
+    elMsg.textContent = FLAVOR[0];
+  }
+
+  function addTask(id, label, weight) {
+    if (tasks.has(id)) return;
+    tasks.set(id, { label, weight, done: false });
+    totalWeight += weight;
+    refresh();
+  }
+
+  // Substitui a frase atual por uma mensagem real (ex.: "Editor Monaco pronto")
+  function setTaskMsg(id, msg) {
+    swapMsg(msg);
+    if (id) {
+      const t = tasks.get(id);
+      if (t) elSub.textContent = t.label;
+    }
+  }
+
+  function completeTask(id, fail) {
+    const t = tasks.get(id);
+    if (!t || t.done) return;
+    t.done = true;
+    doneWeight += t.weight;
+    refresh();
+    // Não loga mais nada — a linha de msg volta a trocar sozinha
+  }
+
+  function finish() {
+    if (closed) return;
+    closed = true;
+    if (flavorTimer) { clearInterval(flavorTimer); flavorTimer = null; }
+    elBar.style.width = '100%';
+    elPct.textContent = '100%';
+    elMsg.textContent = 'Pronto!';
+    elSub.textContent = 'Bem-vindo ao PixelForge Studio';
+    setTimeout(() => {
+      el.classList.add('closing');
+      setTimeout(() => el.classList.add('hidden'), 500);
+    }, 350);
+  }
+
+  function skip() {
+    for (const [id, t] of tasks) if (!t.done) completeTask(id);
+    finish();
+  }
+
+  if (elSkip) {
+    setTimeout(() => { elSkip.disabled = false; }, 2000);
+    elSkip.addEventListener('click', skip);
+  }
+
+  startFlavor();
+
+  setTimeout(() => { if (!closed) skip(); }, 25000);
+
+  return { addTask, setTaskMsg, completeTask, finish, skip };
+})();
+
+window.__Splash = Splash;
+
+Splash.addTask('monaco',   'Carregando editor Monaco',        28);
+Splash.addTask('luau',     'Inicializando runtime Luau',      26);
+Splash.addTask('lsp',      'Subindo servidor de linguagem',   28);
+Splash.addTask('docs',     'Baixando documentação da API',     8);
+Splash.addTask('fonts',    'Carregando fontes',                4);
+Splash.addTask('studio',   'Preparando cena 3D',               6);
+
+/* ==========================================================================
+   PFORGE_RUNTIME  (inalterado)
    ========================================================================== */
 const PFORGE_RUNTIME = `
 (function() {
   'use strict';
 
   var STUDIO_MODE = (window.__STUDIO_MODE === true);
-
-  // Nota: em STUDIO_MODE o hook do buildStudioHTML já cuida de detectar a cena
-  // e escolher a câmera correta. Não duplicamos o override aqui.
 
   var canvas = document.createElement('canvas');
   canvas.id = 'pforge-canvas';
@@ -2207,8 +2676,6 @@ const PFORGE_RUNTIME = `
     lastTime = now;
     resizeCanvas();
 
-    // Em STUDIO_MODE (overview do editor) os scripts NÃO animam:
-    // rodam uma vez pra montar a cena estática, como o Edit mode do Roblox Studio.
     if (!STUDIO_MODE) window.updateThreads(dt);
     if (!initialized && typeof window.init === 'function') {
       initialized = true;
@@ -2282,8 +2749,6 @@ const PFORGE_RUNTIME = `
         this.renderer.domElement.style.height = '100%';
         document.body.appendChild(this.renderer.domElement);
       } else if (window.__studio) {
-        // Overview = Edit mode. O studio renderiza a cena do jogo com a
-        // câmera do editor. Aqui só avisamos que a cena existe.
         window.__studio.scene = this.scene;
         window.__studio.gameCamera = this.camera;
         var __cbs = window.__studio._sceneReadyCbs;
@@ -2450,7 +2915,7 @@ const PFORGE_RUNTIME = `
       var m = new THREE.GridHelper(size, div, c1, c2);
       if (opts.position) m.position.set(opts.position[0], opts.position[1], opts.position[2]);
       m.name = name || '';
-      m.userData.collidable = false; // grid é helper (LineSegments), não colide
+      m.userData.collidable = false;
       this.scene.add(m);
       if (name) this._objects[name] = m;
       return m;
@@ -2551,8 +3016,6 @@ const PFORGE_RUNTIME = `
     setFreeCamera: function(enabled) {
       this.freeCameraEnabled = !!enabled;
     },
-
-    /* ---------- COLISÃO ---------- */
     setCollidable: function(name, v) {
       var o = this._objects[name];
       if (!o) return;
@@ -2789,9 +3252,9 @@ const PFORGE_RUNTIME = `
 `;
 
 /* ==========================================================================
-   SCRIPT DATA + TREE
+   SCRIPT DATA
    ========================================================================== */
-const DEFAULT_CONTENT = `local msg = "Hello World!"  -- VARIABLE!
+const DEFAULT_CONTENT = `local msg = "Hello World!"
 
 print(msg)`;
 
@@ -2804,7 +3267,6 @@ gfx3d.init({
   far = 4000
 })
 
--- Iluminação
 gfx3d.addLight("ambient",    { color = 0xffffff, intensity = 0.65 })
 gfx3d.addLight("hemisphere", { color = 0xdfeaff, groundColor = 0x303040, intensity = 0.55 })
 gfx3d.addLight("directional", {
@@ -2813,7 +3275,6 @@ gfx3d.addLight("directional", {
   position = { -30, 60, -20 }
 })
 
--- Chão
 gfx3d.addPlane("ground", {
   width = 200,
   height = 200,
@@ -2822,7 +3283,6 @@ gfx3d.addPlane("ground", {
   position = { 0, -0.02, 0 }
 })
 
--- Grid
 gfx3d.addGrid("grid", {
   size = 200,
   divisions = 200,
@@ -2830,19 +3290,13 @@ gfx3d.addGrid("grid", {
   color2 = 0x3a3e47
 })
 
--- Câmera inicial
 gfx3d.setCamera({
   position = { 8, 8, 12 },
   lookAt = { 0, 0, 0 },
   fov = 70
 })`;
 
-const WORLD_CONTENT = `-- =====================================================================
--- World (ServerScript)
--- Eleição de host via storage. O host lê todas as posições em
--- storage.pos_<id> e broadcasta o mundo via net.send.
--- =====================================================================
-
+const WORLD_CONTENT = `-- World (ServerScript)
 local ROOM         = "world"
 local HOST_KEY     = "world_host"
 local HOST_TIMEOUT = 3000
@@ -2923,13 +3377,7 @@ onUpdate(function(dt)
   net.send(ROOM, "WORLD|" .. table.concat(parts, ";"))
 end)`;
 
-const PLAYER_CONTROLLER_CONTENT = `-- =====================================================================
--- PlayerController (ClientScript)
--- Escreve a posição em storage.pos_<meu_id>.
--- Escuta WORLD| via net e desenha todos os jogadores remotos.
--- Colisão AABB contra parts com collidable = true (padrão).
--- =====================================================================
-
+const PLAYER_CONTROLLER_CONTENT = `-- PlayerController (ClientScript)
 local ROOM       = "world"
 local SEND_INT   = 1 / 20
 local TIMEOUT_MS = 5000
@@ -2948,16 +3396,13 @@ gfx3d.addPlane("ground", { width = 200, height = 200, color = 0x353941,
 gfx3d.addGrid("grid", { size = 200, divisions = 200,
   color1 = 0x555a66, color2 = 0x3a3e47 })
 
--- ---------- Blocos de teste (colidíveis por padrão) ----------
 gfx3d.addBox("wallA",    { size = { 8, 4, 1 }, color = 0x4fa8d8, position = { 0, 2, -6 } })
 gfx3d.addBox("wallB",    { size = { 1, 4, 8 }, color = 0xe04343, position = { -6, 2, 0 } })
 gfx3d.addBox("stepLow",  { size = { 4, 1, 4 }, color = 0x6bcf7f, position = { 5, 0.5, 5 } })
 gfx3d.addBox("stepHigh", { size = { 4, 2, 4 }, color = 0xf5b041, position = { 5, 1, 0 } })
--- Exemplo: uma caixa decorativa sem colisão
 gfx3d.addBox("ghost",    { size = { 3, 3, 3 }, color = 0xb180d7,
   position = { -5, 1.5, 5 }, collidable = false })
 
--- ---------- Player local ----------
 local player = {
   x = 0, y = 0, z = 0, vy = 0, onGround = true,
   yaw = 0, facing = 0, pitch = -0.15,
@@ -2980,7 +3425,6 @@ for _, p in ipairs(AVATAR) do
   gfx3d.addBox(p.name, { size = p.size, color = p.color, position = { 0, p.offset[2], 0 }, collidable = false })
 end
 
--- ---------- Template do avatar remoto ----------
 local REMOTE_DEF = {
   { base = "Head",  offset = { 0, 1.55, 0 },      size = { 0.55, 0.55, 0.55 } },
   { base = "Torso", offset = { 0, 0.98, 0 },      size = { 0.75, 0.75, 0.36 } },
@@ -3006,7 +3450,6 @@ local function spawnRemote(id)
     r.parts[def.base] = { def = def, gname = gname }
   end
   remotes[id] = r
-  print("[Client] + " .. id)
 end
 
 local function removeRemote(id)
@@ -3014,7 +3457,6 @@ local function removeRemote(id)
   if not r then return end
   for _, part in pairs(r.parts) do gfx3d.remove(part.gname) end
   remotes[id] = nil
-  print("[Client] - " .. id)
 end
 
 local function angleLerp(a, b, t)
@@ -3024,27 +3466,16 @@ local function angleLerp(a, b, t)
   return a + d * t
 end
 
--- ---------- Colisão AABB ----------
-local HW = 0.40   -- meia largura
-local HH = 1.70   -- altura (pés -> topo)
+local HW = 0.40
+local HH = 1.70
 
--- Checa colisão na horizontal: caixa começa um pouco acima dos pés
--- pra não travar quando o player está em cima de um bloco.
 local function collidesHoriz(px, py, pz)
-  return gfx3d.checkCollision(
-    px - HW, py + 0.15, pz - HW,
-    px + HW, py + HH,   pz + HW
-  )
+  return gfx3d.checkCollision(px - HW, py + 0.15, pz - HW, px + HW, py + HH, pz + HW)
 end
--- Checa colisão vertical: caixa encosta nos pés (detecta chão/teto).
 local function collidesVert(px, py, pz)
-  return gfx3d.checkCollision(
-    px - HW, py, pz - HW,
-    px + HW, py + HH, pz + HW
-  )
+  return gfx3d.checkCollision(px - HW, py, pz - HW, px + HW, py + HH, pz + HW)
 end
 
--- ---------- Recebe o mundo ----------
 net.onMessage(ROOM, function(msg)
   if type(msg) ~= "string" then return end
   local world = string.match(msg, "^WORLD|(.*)$")
@@ -3074,13 +3505,11 @@ net.onMessage(ROOM, function(msg)
   end
 end)
 
--- ---------- Loop ----------
 local sendAccum = 0
 
 onUpdate(function(dt)
   if dt > 0.1 then dt = 0.1 end
 
-  -- Input
   local mx = mouse.x or 0
   local my = mouse.y or 0
   local dragging = (mouse.left == 1) or (mouse.middle == 1) or (mouse.right == 1)
@@ -3102,7 +3531,6 @@ onUpdate(function(dt)
 
   local firstPerson = (player.dist < 1.5)
 
-  -- Direções
   local fx, fz = math.sin(player.yaw), math.cos(player.yaw)
   local rx, rz = math.cos(player.yaw), -math.sin(player.yaw)
   local mvx, mvz = 0, 0
@@ -3115,7 +3543,6 @@ onUpdate(function(dt)
   local moving = len > 0
   if moving then mvx, mvz = mvx / len, mvz / len end
 
-  -- Movimento X (colisão)
   local nx = player.x + mvx * player.speed * dt
   if nx ~= player.x then
     if collidesHoriz(nx, player.y, player.z) == "" then
@@ -3123,7 +3550,6 @@ onUpdate(function(dt)
     end
   end
 
-  -- Movimento Z (colisão)
   local nz = player.z + mvz * player.speed * dt
   if nz ~= player.z then
     if collidesHoriz(player.x, player.y, nz) == "" then
@@ -3131,23 +3557,19 @@ onUpdate(function(dt)
     end
   end
 
-  -- Facing
   if firstPerson then
     player.facing = player.yaw
   elseif moving then
     player.facing = angleLerp(player.facing, math.atan2(mvx, mvz), math.min(1, dt * 14))
   end
 
-  -- Gravidade + colisão vertical
   player.vy = player.vy + GRAVITY * dt
   local ny = player.y + player.vy * dt
   local yHit = collidesVert(player.x, ny, player.z)
   if yHit ~= "" then
     if player.vy > 0 then
-      -- bateu no teto
       player.vy = 0
     else
-      -- pousou em cima de um bloco
       local top = gfx3d.getPartTop(yHit)
       player.y = top
       player.vy = 0
@@ -3166,7 +3588,6 @@ onUpdate(function(dt)
     player.vy = player.jump; player.onGround = false
   end
 
-  -- Animação do local
   if moving and not firstPerson then
     player.moveBlend = math.min(1, player.moveBlend + dt * 8)
     player.walkPhase = player.walkPhase + dt * 12
@@ -3196,7 +3617,6 @@ onUpdate(function(dt)
     end
   end
 
-  -- Câmera
   local cp = math.cos(player.pitch)
   local dx, dy, dz = math.sin(player.yaw) * cp, math.sin(player.pitch), math.cos(player.yaw) * cp
   local pvx, pvy, pvz = player.x, player.y + player.eye, player.z
@@ -3206,7 +3626,6 @@ onUpdate(function(dt)
   if ey < 0.2 then ey = 0.2 end
   gfx3d.setCamera({ position = { ex, ey, ez }, lookAt = { pvx, pvy, pvz }, fov = 70 })
 
-  -- Escreve minha posição
   sendAccum = sendAccum + dt
   if sendAccum >= SEND_INT then
     sendAccum = 0
@@ -3214,7 +3633,6 @@ onUpdate(function(dt)
       player.x, player.y, player.z, player.facing, system.time()))
   end
 
-  -- Desenha remotos
   for _, r in pairs(remotes) do
     local rcf, rsf = math.cos(r.facing), math.sin(r.facing)
     for _, part in pairs(r.parts) do
@@ -3428,7 +3846,7 @@ function closeTab(id) {
   updateTabsBar();
   refreshUI();
 
-clearTimeout(closeTab._reloadT);
+  clearTimeout(closeTab._reloadT);
   closeTab._reloadT = setTimeout(() => {
     try { if (Studio && Studio.reload) Studio.reload(); } catch (e) {}
   }, 120);
@@ -3436,175 +3854,19 @@ clearTimeout(closeTab._reloadT);
 
 const editorStateByScriptId = new Map();
 
-/* ==========================================================================
-   MONACO EDITOR
-   ========================================================================== */
 let monacoEditor = null;
 let monacoModel  = null;
+let monacoReady  = false;
 let currentText  = '';
 let textVersion  = 0;
 let caretOffset  = 0;
 let lastSel      = { start: 0, end: 0, anchor: 0, focus: 0 };
 let bridgeSyncing = false;
+let lastTextVersionSeenByCursor = -1;
+let docsJson = null;
 
-/* ==========================================================================
-   LSP BRIDGE
-   ========================================================================== */
-(function () {
-  'use strict';
-
-  let lspWorker = null;
-  let lspReady = false;
-  let nextId = 1;
-  const pending = new Map();
-
-  function encode(obj) { return JSON.stringify(obj); }
-
-  function decode(str) {
-    const out = [];
-    for (const line of str.split('\n')) {
-      const s = line.trim();
-      if (!s) continue;
-      try { out.push(JSON.parse(s)); }
-      catch (e) { console.error('LSP JSON bad:', s); }
-    }
-    return out;
-  }
-
-  function send(obj) { lspWorker.postMessage(encode(obj)); }
-
-  function request(method, params) {
-    return new Promise((resolve, reject) => {
-      const id = nextId++;
-      pending.set(id, { resolve, reject });
-      send({ jsonrpc: '2.0', id, method, params });
-    });
-  }
-
-  function notify(method, params) {
-    send({ jsonrpc: '2.0', method, params });
-  }
-
-  const DOC_URI = 'file:///workspace/1';
-  const ROOT_URI = 'file:///workspace';
-  let docOpened = false;
-  let docVersion = 0;
-
-  function initialize() {
-    const LSP_CDN = 'https://raw.githubusercontent.com/Zennokaidy/luau-lsp/main/web/public';
-
-    return fetch(LSP_CDN + '/Luau.LanguageServer.Web.js')
-      .then(function (response) {
-        if (!response.ok) throw new Error('Falha ao baixar worker: ' + response.status);
-        return response.text();
-      })
-      .then(function (rawText) {
-        const workerScriptText = rawText
-          .replace(/^\s*export\s+default\s+[^\n;]*;?\s*$/m, '')
-          .replace(
-            /(const\s+deployDirectory\s*=\s*['"])[^'"]*(['"])/,
-            '$1' + LSP_CDN + '/$2'
-          );
-
-        const blob = new Blob([workerScriptText], { type: 'application/javascript' });
-        const blobUrl = URL.createObjectURL(blob);
-
-        lspWorker = new Worker(blobUrl);
-        URL.revokeObjectURL(blobUrl);
-
-        lspWorker.addEventListener('message', function (e) {
-          console.log('[LSP raw]', e.data);
-          const d = e.data || {};
-          if (d.type === 'info') { console.log('[LSP info]', d.msg); return; }
-          if (d.type === 'error') { console.error('[LSP error]', d.msg); return; }
-          if (d.type !== 'output') return;
-
-          for (const m of decode(d.msg)) {
-            if (m.id !== undefined && pending.has(m.id)) {
-              const { resolve, reject } = pending.get(m.id);
-              pending.delete(m.id);
-              m.error ? reject(m.error) : resolve(m.result);
-            } else if (m.method && m.id !== undefined) {
-              send({ jsonrpc: '2.0', id: m.id, result: null });
-            } else if (m.method) {
-              if (m.method === 'window/logMessage') {
-                console.log('[LSP]', m.params.message);
-              }
-            }
-          }
-        });
-
-        return request('initialize', {
-          processId: null,
-          rootUri: ROOT_URI,
-          workspaceFolders: [{ uri: ROOT_URI, name: 'workspace' }],
-          capabilities: {
-            textDocument: {
-              completion: {
-                completionItem: {
-                  snippetSupport: false,
-                  documentationFormat: ['markdown', 'plaintext'],
-                  resolveSupport: { properties: ['documentation', 'detail'] }
-                },
-                contextSupport: true
-              },
-              synchronization: { dynamicRegistration: false },
-              publishDiagnostics: {}
-            }
-          },
-          initializationOptions: null
-        });
-      })
-      .then(function (initRes) {
-        notify('initialized', {});
-        lspReady = true;
-        console.log('[LSP] initialized', initRes);
-        return initRes;
-      });
-  }
-
-  function didOpen(text) {
-    if (docOpened) return;
-    docOpened = true;
-    docVersion = 0;
-    notify('textDocument/didOpen', {
-      textDocument: { uri: DOC_URI, languageId: 'luau', version: 0, text }
-    });
-  }
-
-  function didChange(text) {
-    if (!lspReady) return;
-    if (!docOpened) { didOpen(text); return; }
-    docVersion++;
-    notify('textDocument/didChange', {
-      textDocument: { uri: DOC_URI, version: docVersion },
-      contentChanges: [{ text }]
-    });
-  }
-
-  function completion(offset, text) {
-    if (!lspReady || !docOpened) return Promise.resolve(null);
-    const pos = monacoModel.getPositionAt(offset);
-    return request('textDocument/completion', {
-      textDocument: { uri: DOC_URI },
-      position: { line: pos.lineNumber - 1, character: pos.column - 1 },
-      context: { triggerKind: 1 }
-    });
-  }
-
-  window.LuauLSP = {
-    initialize,
-    didOpen,
-    didChange,
-    completion,
-    isReady: () => lspReady && docOpened
-  };
-})();
-
-/* ==========================================================================
-   MONACO MAIN
-   ========================================================================== */
 const MONACO_BASE = 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min';
+const DOCS_CDN    = 'https://raw.githack.com/Zennokaidy/luau-lsp-pforge/main/web/public';
 const INITIAL_TEXT = '';
 
 const KIND_META = {
@@ -3622,9 +3884,6 @@ const KIND_META = {
 };
 
 const LUAU_API = { globals: [], members: {} };
-
-let editor = null;
-let monacoReady = false;
 
 let hasDocsContent = true;
 let acOpen = false, acItems = [], acIndex = 0, acStart = 0, acPrefix = '';
@@ -3659,6 +3918,316 @@ const eHandle     = document.querySelector('.ac-resize-e');
 const docsEHandle = document.querySelector('.ac-resize-docs-e');
 const sHandle     = document.querySelector('.ac-resize-s');
 const seHandle    = document.querySelector('.ac-resize-se');
+
+/* ==========================================================================
+   LSP BRIDGE
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  let lspWorker = null;
+  let lspReady = false;
+  let nextId = 1;
+  const pending = new Map();
+
+  function encode(obj) { return JSON.stringify(obj); }
+
+  function decode(str) {
+    const out = [];
+    let pos = 0;
+    while (pos < str.length) {
+      const headerEnd = str.indexOf('\r\n\r\n', pos);
+      if (headerEnd === -1) break;
+      const header = str.slice(pos, headerEnd);
+      const m = header.match(/Content-Length:\s*(\d+)/i);
+      if (!m) { console.error('LSP header malformed:', header); break; }
+      const len = parseInt(m[1], 10);
+      const bodyStart = headerEnd + 4;
+      const bodyEnd = bodyStart + len;
+      if (bodyEnd > str.length) break;
+      const body = str.slice(bodyStart, bodyEnd);
+      try { out.push(JSON.parse(body)); }
+      catch (e) { console.error('LSP JSON bad:', body); }
+      pos = bodyEnd;
+    }
+    return out;
+  }
+
+  function send(obj) { lspWorker.postMessage(encode(obj)); }
+  function request(method, params) {
+    return new Promise((resolve, reject) => {
+      const id = nextId++;
+      pending.set(id, { resolve, reject });
+      send({ jsonrpc: '2.0', id, method, params });
+    });
+  }
+  function notify(method, params) { send({ jsonrpc: '2.0', method, params }); }
+
+  const DOC_URI = 'file:///workspace/main.luau';
+  const ROOT_URI = 'file:///workspace';
+  let docOpened = false;
+  let docVersion = 0;
+
+  function initialize() {
+    const LSP_CDN = 'https://raw.githack.com/Zennokaidy/luau-lsp-pforge/main/web/public';
+
+    return Promise.all([
+      fetch(LSP_CDN + '/Luau.LanguageServer.Web.js').then(r => {
+        if (!r.ok) throw new Error('Falha ao baixar .js: ' + r.status);
+        return r.text();
+      }),
+      fetch(LSP_CDN + '/Luau.LanguageServer.Web.wasm').then(r => {
+        if (!r.ok) throw new Error('Falha ao baixar .wasm: ' + r.status);
+        return r.arrayBuffer();
+      }),
+      fetch(LSP_CDN + '/demo.defs.luau').then(r => {
+        if (!r.ok) throw new Error('Falha ao baixar defs.luau: ' + r.status);
+        return r.text();
+      }),
+      fetch(LSP_CDN + '/demo.docs.json').then(r => {
+        if (!r.ok) throw new Error('Falha ao baixar docs.json: ' + r.status);
+        return r.text();
+      })
+    ])
+      .then(function (results) {
+        const rawText    = results[0];
+        const wasmBuffer = results[1];
+        const defsText   = results[2];
+        const docsText   = results[3];
+        const jsUrl = LSP_CDN + '/Luau.LanguageServer.Web.js';
+
+        let workerScriptText = rawText
+          .replace(/^\s*export\s+default\s+\w+\s*;?\s*$/gm, '')
+          .replace(/^\s*export\s*\{[^}]*\}\s*;?\s*$/gm, '')
+          .replace(/import\.meta\.url/g, JSON.stringify(jsUrl));
+
+        workerScriptText += '\n' + [
+          'var wasmBinary = null;',
+          'var defsText = null;',
+          'var docsText = null;',
+          'var Module = null;',
+          'var server = null;',
+          'var initDone = false;',
+          'var pendingMessages = [];',
+          '',
+          'self.onerror = function(msg, src, line, col, err) {',
+          '  self.postMessage({ type: "error", msg: "worker onerror: " + msg + " @ " + line + ":" + col });',
+          '};',
+          '',
+          'self.postMessage({ type: "info", msg: "worker iniciado" });',
+          '',
+          'function initModule() {',
+          '  self.postMessage({ type: "info", msg: "initModule inicio, wasmBinary len = " + wasmBinary.length });',
+          '  try {',
+          '    var result = LuauLanguageServerWeb({',
+          '      wasmBinary: wasmBinary,',
+          '      print: function(text) { self.postMessage({ type: "info", msg: "[stdout] " + text }); },',
+          '      printErr: function(text) { self.postMessage({ type: "error", msg: "[stderr] " + text }); },',
+          '      onAbort: function(reason) { self.postMessage({ type: "error", msg: "[abort] " + reason }); },',
+          '      onRuntimeInitialized: function() { self.postMessage({ type: "info", msg: "onRuntimeInitialized" }); }',
+          '    });',
+          '',
+          '    self.postMessage({ type: "info", msg: "retornou, typeof = " + typeof result });',
+          '',
+          '    result.then(function(M) {',
+          '      Module = M;',
+          '      self.postMessage({ type: "info", msg: "Module resolvido, createWasmLanguageServer = " + typeof M.createWasmLanguageServer });',
+          '',
+          '      try {',
+          '        M.FS.createDataFile("/", "demo.defs.luau", new TextEncoder().encode(defsText), true, true, true);',
+          '        M.FS.createDataFile("/", "demo.docs.json", new TextEncoder().encode(docsText), true, true, true);',
+          '        self.postMessage({ type: "info", msg: "defs.luau e docs.json escritos no FS" });',
+          '      } catch (fsErr) {',
+          '        self.postMessage({ type: "error", msg: "erro ao escrever FS: " + fsErr });',
+          '      }',
+          '',
+          '      var outputFn = function(msg) { self.postMessage({ type: "output", msg: msg }); };',
+          '',
+          '      server = M.createWasmLanguageServer(',
+          '        outputFn,',
+          '        "luau",',
+          '        ["demo.defs.luau"],',
+          '        ["demo.docs.json"]',
+          '      );',
+          '',
+          '      self.postMessage({ type: "info", msg: "server criado" });',
+          '      initDone = true;',
+          '      for (var i = 0; i < pendingMessages.length; i++) {',
+          '        processOne(pendingMessages[i]);',
+          '      }',
+          '      pendingMessages = [];',
+          '    }).catch(function(err) {',
+          '      self.postMessage({ type: "error", msg: "Promise rejeitada: " + err });',
+          '    });',
+          '  } catch (e) {',
+          '    self.postMessage({ type: "error", msg: "factory lancou: " + e.message + " | " + e.stack });',
+          '  }',
+          '}',
+          '',
+          'function processOne(data) {',
+          '  try {',
+          '    server.processInput(data);',
+          '  } catch (err) {',
+          '    self.postMessage({ type: "error", msg: "processInput: " + err });',
+          '  }',
+          '}',
+          '',
+          'self.onmessage = function(e) {',
+          '  if (e.data && e.data.type === "init-wasm") {',
+          '    wasmBinary = new Uint8Array(e.data.wasmBuffer);',
+          '    defsText   = e.data.defsText;',
+          '    docsText   = e.data.docsText;',
+          '    self.postMessage({ type: "info", msg: "init-wasm recebido" });',
+          '    initModule();',
+          '    return;',
+          '  }',
+          '  if (!initDone) {',
+          '    pendingMessages.push(e.data);',
+          '    return;',
+          '  }',
+          '  processOne(e.data);',
+          '};',
+        ].join('\n') + '\n';
+
+        const blob = new Blob([workerScriptText], { type: 'application/javascript' });
+        const blobUrl = URL.createObjectURL(blob);
+
+        lspWorker = new Worker(blobUrl);
+        URL.revokeObjectURL(blobUrl);
+
+        lspWorker.onerror = (e) => console.error('[LSP worker error]', e);
+        lspWorker.onmessageerror = (e) => console.error('[LSP worker messageerror]', e);
+
+        lspWorker.addEventListener('message', function (e) {
+          const d = e.data || {};
+          if (d.type === 'info') return;
+          if (d.type === 'error') { console.error('[LSP error]', d.msg); return; }
+          if (d.type !== 'output') return;
+
+          for (const m of decode(d.msg)) {
+            if (m.id !== undefined && pending.has(m.id)) {
+              const { resolve, reject } = pending.get(m.id);
+              pending.delete(m.id);
+              m.error ? reject(m.error) : resolve(m.result);
+            } else if (m.method && m.id !== undefined) {
+              send({ jsonrpc: '2.0', id: m.id, result: null });
+            }
+          }
+        });
+
+        lspWorker.postMessage({
+          type: 'init-wasm',
+          wasmBuffer: wasmBuffer,
+          defsText: results[2],
+          docsText: results[3]
+        }, [wasmBuffer]);
+
+        return request('initialize', {
+          processId: null,
+          rootUri: ROOT_URI,
+          workspaceFolders: [{ uri: ROOT_URI, name: 'workspace' }],
+          capabilities: {
+            textDocument: {
+              completion: {
+                completionItem: {
+                  snippetSupport: true,
+                  documentationFormat: ['markdown', 'plaintext'],
+                  resolveSupport: { properties: ['documentation', 'detail'] }
+                },
+                contextSupport: true
+              },
+              hover: { contentFormat: ['markdown', 'plaintext'] },
+              synchronization: { dynamicRegistration: false },
+              publishDiagnostics: {}
+            }
+          },
+          initializationOptions: null
+        });
+      })
+      .then(function (initRes) {
+        notify('initialized', {});
+        lspReady = true;
+        try { Splash.setTaskMsg('lsp', 'LSP pronto'); Splash.completeTask('lsp'); } catch(e){}
+        return initRes;
+      });
+  }
+
+  function didOpen(text) {
+    if (docOpened) return;
+    docOpened = true;
+    docVersion = 0;
+    notify('textDocument/didOpen', {
+      textDocument: { uri: DOC_URI, languageId: 'luau', version: 0, text }
+    });
+  }
+
+  function didChange(text) {
+    if (!lspReady) return;
+    if (!docOpened) { didOpen(text); return; }
+    docVersion++;
+    notify('textDocument/didChange', {
+      textDocument: { uri: DOC_URI, version: docVersion },
+      contentChanges: [{ text }]
+    });
+  }
+
+  function completion(offset) {
+    if (!lspReady || !docOpened) return Promise.resolve(null);
+    const pos = monacoModel.getPositionAt(offset);
+    return request('textDocument/completion', {
+      textDocument: { uri: DOC_URI },
+      position: { line: pos.lineNumber - 1, character: pos.column - 1 },
+      context: { triggerKind: 1 }
+    });
+  }
+
+  function hover(offset) {
+    if (!lspReady || !docOpened) return Promise.resolve(null);
+    const pos = monacoModel.getPositionAt(offset);
+    return request('textDocument/hover', {
+      textDocument: { uri: DOC_URI },
+      position: { line: pos.lineNumber - 1, character: pos.column - 1 }
+    });
+  }
+
+  window.LuauLSP = {
+    initialize,
+    didOpen,
+    didChange,
+    completion,
+    hover,
+    isReady: () => lspReady && docOpened
+  };
+})();
+
+async function loadDocsJson() {
+  try {
+    const r = await fetch(DOCS_CDN + '/demo.docs.json');
+    if (r.ok) docsJson = await r.json();
+    else console.warn('[docs.json] HTTP', r.status);
+  } catch (e) {
+    console.warn('[docs.json] erro:', e);
+  }
+  try { Splash.completeTask('docs'); } catch(e) {}
+}
+
+function getCodeSampleFromDocs(label, receiver) {
+  if (!docsJson) return null;
+  const prefixes = ['@pforge/global/', '@demo/global/', '@luau/global/'];
+  for (const prefix of prefixes) {
+    if (receiver) {
+      const memberKey = prefix + receiver + '.' + label;
+      if (docsJson[memberKey] && docsJson[memberKey].code_sample) {
+        return docsJson[memberKey].code_sample;
+      }
+    }
+    const globalKey = prefix + label;
+    if (docsJson[globalKey] && docsJson[globalKey].code_sample) {
+      return docsJson[globalKey].code_sample;
+    }
+  }
+  return null;
+}
 
 function defineCustomTheme() {
   monaco.editor.defineTheme('pforge-dark', {
@@ -3712,54 +4281,43 @@ function registerLuauMonarch() {
   monaco.languages.setMonarchTokensProvider('lua', {
     defaultToken: '',
     tokenPostfix: '.luau',
-
     brackets: [
       { open: '{', close: '}', token: 'delimiter.curly' },
       { open: '[', close: ']', token: 'delimiter.square' },
       { open: '(', close: ')', token: 'delimiter.parenthesis' }
     ],
-
     keywords: [
       'and', 'break', 'continue', 'do', 'else', 'elseif', 'end',
       'for', 'function', 'if', 'in', 'local', 'not', 'or',
-      'repeat', 'return', 'then', 'until', 'while', 'self'
+      'repeat', 'return', 'then', 'until', 'while', 'self', 'const', 'export'
     ],
-
     constants: ['true', 'false', 'nil'],
-
     builtinFunctions: [
       'print', 'warn', 'error', 'assert', 'type', 'typeof', 'tostring', 'tonumber',
       'pairs', 'ipairs', 'next', 'select', 'pcall', 'xpcall',
       'setmetatable', 'getmetatable', 'rawget', 'rawset',
-      'onInit', 'onUpdate', 'onDraw',
-      'require'
+      'onInit', 'onUpdate', 'onDraw', 'require'
     ],
-
     builtinModules: [
       'math', 'string', 'table', 'os', 'coroutine', 'bit32', 'utf8',
       'screen', 'gfx3d', 'keyboard', 'mouse', 'touch', 'gamepad',
-      'system', 'storage', 'audio', 'asset_manager',
-      'world', 'random', 'sprites', 'maps', 'sounds', 'music'
+      'system', 'storage', 'audio', 'asset_manager', 'three',
+      'random', 'sprites', 'maps', 'sounds', 'music'
     ],
-
     tokenizer: {
       root: [
         [/--\[\[/, 'comment', '@long_comment'],
         [/--\[=*\[/, { token: 'comment', next: '@long_comment_eq' }],
         [/--.*$/, 'comment'],
-
         [/\[\[/, 'string', '@long_string'],
         [/\[=*\[/, 'string', '@long_string_eq'],
-
         [/"([^"\\]|\\.)*$/, 'string.invalid'],
         [/'([^'\\]|\\.)*$/, 'string.invalid'],
         [/"/, 'string', '@string_double'],
         [/'/, 'string', '@string_single'],
-
         [/0[xX][0-9a-fA-F]+/, 'number.hex'],
         [/0[bB][01]+/, 'number.binary'],
         [/\d+(\.\d+)?([eE][+\-]?\d+)?/, 'number'],
-
         [/[a-zA-Z_]\w*(?=[\(\[\{])/, {
           cases: {
             '@keywords':       'keyword',
@@ -3768,7 +4326,6 @@ function registerLuauMonarch() {
             '@default':        'function'
           }
         }],
-
         [/[a-zA-Z_]\w*(?=:(?!:))/, {
           cases: {
             '@keywords':  'keyword',
@@ -3776,7 +4333,6 @@ function registerLuauMonarch() {
             '@default':   'namespace'
           }
         }],
-
         [/[a-zA-Z_][\w]*/, {
           cases: {
             '@keywords':         'keyword',
@@ -3786,15 +4342,12 @@ function registerLuauMonarch() {
             '@default':          'identifier'
           }
         }],
-
         [/[{}]/,   'delimiter.curly'],
         [/[\[\]]/, 'delimiter.square'],
         [/[()]/,   'delimiter.parenthesis'],
-
         [/\.\.\.|\.\.|==|~=|<=|>=|\/\/|[+\-*\/%^#<>=~]=?/, 'operator'],
         [/[;,.]/, 'delimiter'],
       ],
-
       string_double: [
         [/[^\\"]+/, 'string'],
         [/\\./,     'string.escape'],
@@ -3852,9 +4405,13 @@ function registerLuauMonarch() {
   });
 }
 
+function offsetToPosition(offset) { return monacoModel.getPositionAt(offset); }
+function positionToOffset(pos)    { return monacoModel.getOffsetAt(pos); }
+function currentTextValue()       { return monacoModel ? monacoModel.getValue() : ''; }
+
 function collectLocals() {
   if (localsCacheVersion === textVersion && localsCache) return localsCache;
-  const t = monacoModel.getValue();
+  const t = currentTextValue();
   const map = new Map();
   const lineOf = (idx) => monacoModel.getPositionAt(idx).lineNumber;
 
@@ -3942,7 +4499,7 @@ function memberCompletions(receiver, prefix) {
 }
 
 function collectStringWords() {
-  const t = monacoModel.getValue();
+  const t = currentTextValue();
   if (stringWordsCacheVersion === textVersion) return stringWordsCache;
   const words = new Set();
   const re = /'(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"/g;
@@ -4057,52 +4614,100 @@ function updateSelectionUI(scrollToSelected) {
   }
 }
 
-function updateDocs(item) {
-  const detailIsObject = item.detail && item.detail.trimStart().startsWith('{');
-  hasDocsContent = !!(item.doc || item.example || (item.detail && !detailIsObject));
+function formatCodeSnippet(rawCode) {
+  if (!rawCode) return '';
+  let escaped = rawCode.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  let registry = [];
+  let regIndex = 0;
 
+  escaped = escaped.replace(/(--.*)$/gm, function(match) {
+    let tokenKey = `___TOKEN_REG_${regIndex}___`;
+    registry[regIndex] = `<span class="token-comment">${match}</span>`;
+    regIndex++;
+    return tokenKey;
+  });
+
+  escaped = escaped.replace(/("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')/g, function(match) {
+    let tokenKey = `___TOKEN_REG_${regIndex}___`;
+    registry[regIndex] = `<span class="token-string">${match}</span>`;
+    regIndex++;
+    return tokenKey;
+  });
+
+  escaped = escaped.replace(/\b(local|const|let|var|function|return|if|else|end|for|while|do|in|not|and|or)\b/g, '<span class="token-keyword">$1</span>');
+  escaped = escaped.replace(/\b(\d+)\b/g, '<span class="token-number">$1</span>');
+  escaped = escaped.replace(/\b([a-zA-Z_]\w*)(?=\()/g, '<span class="token-function">$1</span>');
+
+  for (let i = 0; i < registry.length; i++) {
+    escaped = escaped.replace(`___TOKEN_REG_${i}___`, registry[i]);
+  }
+  return escaped;
+}
+
+function generateGutter(rawCode) {
+  const lines = rawCode.split('\n');
+  let numbers = '';
+  for (let i = 1; i <= lines.length; i++) {
+    numbers += i + (i < lines.length ? '\n' : '');
+  }
+  return numbers;
+}
+
+function updateDocs(item) {
+  if (acStringMode && item._isStringWord) {
+    let html = '<div class="docs-name" style="color:#ce9178">' + escapeHtml(item.label) + '</div>';
+    html += '<div class="docs-type">(string) string</div>';
+    html += '<div class="docs-doc">A string literal value found in the source code.</div>';
+    acDocsEl.innerHTML = html;
+    acDocsEl.style.display = 'block';
+    if (curDocsW) acDocsEl.style.width = curDocsW + 'px';
+    acDocsEl.scrollTop = 0;
+    if (acWidget.style.display === 'flex') positionHandles();
+    return;
+  }
+
+  hasDocsContent = !!(item.doc || item.detail || item.example);
   if (!hasDocsContent) {
-    acDocsEl.innerHTML = '';
+    acDocsEl.innerHTML = '<div class="docs-empty">No description.</div>';
     acDocsEl.style.display = 'none';
     if (acWidget.style.display === 'flex') positionHandles();
     return;
   }
 
-  let html = '';
-  html += '<div class="docs-name" style="color:' + iconColor(item.kind) + '">' + escapeHtml(item.label) + '</div>';
-
-  if (item.doc) {
-    html += '<div class="docs-doc">' + escapeHtml(item.doc) + '</div>';
+  let exampleCode = item.example;
+  if (!exampleCode) {
+    exampleCode = getCodeSampleFromDocs(item.label, item._receiver);
   }
 
-  if (item.detail && !detailIsObject) {
-    const d = item.detail.length > 120 ? item.detail.slice(0, 120) + '…' : item.detail;
-    html += '<div class="docs-type">' + escapeHtml(d) + '</div>';
-  }
+  let html = `
+    <div class="hover-header">
+        <span class="hover-title">${escapeHtml(item.label)}</span>
+    </div>
+    <div class="hover-description">${escapeHtml(item.doc || item.detail || 'No additional documentation.')}</div>
+    <div class="hover-separator"></div>
+    <div class="hover-meta">
+        <span>${escapeHtml(item.detail || item.kind)}</span>
+    </div>
+  `;
 
-  if (item.example) html += '<div class="docs-code">' + escapeHtml(item.example) + '</div>';
-  if (item._source) html += '<div class="docs-source">from <code>' + escapeHtml(item._source) + '</code></div>';
+  if (exampleCode) {
+    let cleanCode = exampleCode.replace(/^\s*\n/, "").trimEnd();
+    let formattedText = formatCodeSnippet(cleanCode);
+    let gutterText = generateGutter(cleanCode);
+
+    html += `
+      <div class="monaco-code-block">
+          <div class="monaco-code-gutter">${gutterText}</div>
+          <div class="monaco-code-text">${formattedText}</div>
+      </div>
+    `;
+  }
 
   acDocsEl.innerHTML = html;
   acDocsEl.style.display = 'block';
   if (curDocsW) acDocsEl.style.width = curDocsW + 'px';
   acDocsEl.scrollTop = 0;
   if (acWidget.style.display === 'flex') positionHandles();
-}
-
-function iconColor(kind) {
-  switch (kind) {
-    case 'function': case 'method':   return '#b180d7';
-    case 'class':                     return '#ee9d28';
-    case 'interface':                 return '#75beff';
-    case 'type':                      return '#4ec9b0';
-    case 'variable':                  return '#75beff';
-    case 'property': case 'constant': return '#cccccc';
-    case 'namespace':                 return '#5CB0D7';
-    case 'string-word':               return '#ce9178';
-    case 'keyword':                   return '#cccccc';
-    default:                          return '#ffffff';
-  }
 }
 
 function convertLspKind(k) {
@@ -4160,6 +4765,24 @@ function findInLuauApi(name, receiver) {
   return null;
 }
 
+const LUAU_SNIPPETS = {
+  'function':       'function ${1:name}(${2})\n\t${0}\nend',
+  'local function': 'local function ${1:name}(${2})\n\t${0}\nend',
+  'local':          'local ${1:name} = ${0}',
+  'if':             'if ${1:condition} then\n\t${0}\nend',
+  'ifelse':         'if ${1:condition} then\n\t${2}\nelse\n\t${0}\nend',
+  'elseif':         'elseif ${1:condition} then\n\t${0}',
+  'else':           'else\n\t${0}',
+  'for':            'for ${1:i} = ${2:1}, ${3:10} do\n\t${0}\nend',
+  'forin':          'for ${1:key}, ${2:value} in pairs(${3:table}) do\n\t${0}\nend',
+  'while':          'while ${1:condition} do\n\t${0}\nend',
+  'repeat':         'repeat\n\t${0}\nuntil ${1:condition}',
+  'do':             'do\n\t${0}\nend',
+  'return':         'return ${0}',
+  'break':          'break',
+  'continue':       'continue'
+};
+
 function convertLspItem(lsp, prefix, receiver) {
   const label = lsp.label || lsp.filterText || '';
   const lp = prefix.toLowerCase();
@@ -4174,8 +4797,12 @@ function convertLspItem(lsp, prefix, receiver) {
     insert = lsp.insertText;
   }
 
-  if (lsp.insertTextFormat === 2) {
-    insert = insert.replace(/\$\{\d+:([^}]*)\}/g, '$1').replace(/\$\d+/g, '');
+  let isSnippet = lsp.insertTextFormat === 2;
+
+  if (!isSnippet && LUAU_SNIPPETS[label] &&
+      (insert === label || insert === lsp.label || insert === '')) {
+    insert = LUAU_SNIPPETS[label];
+    isSnippet = true;
   }
 
   let doc = stripCodeBlocks(lsp.documentation);
@@ -4193,20 +4820,22 @@ function convertLspItem(lsp, prefix, receiver) {
     label,
     kind: convertLspKind(lsp.kind),
     insert,
+    isSnippet,
     detail: lsp.detail || '',
     doc,
     example,
     _matchIdx: matchIdx,
     _rank: 0,
+    _receiver: receiver,
     _lspItem: lsp
   };
 }
 
 function caretRect() {
-  const pos = editor.getPosition();
-  const rel = editor.getScrolledVisiblePosition(pos);
+  const pos = monacoEditor.getPosition();
+  const rel = monacoEditor.getScrolledVisiblePosition(pos);
   if (!rel) return { left: 0, top: 0, bottom: 0, right: 0, height: 21 };
-  const dom = editor.getDomNode().getBoundingClientRect();
+  const dom = monacoEditor.getDomNode().getBoundingClientRect();
   const left = dom.left + rel.left;
   const top  = dom.top  + rel.top;
   return { left, right: left, top, bottom: top + rel.height, width: 0, height: rel.height };
@@ -4243,7 +4872,7 @@ function hideAutocomplete() {
 }
 
 function textContext(pos) {
-  const text = monacoModel.getValue().slice(0, pos);
+  const text = currentTextValue().slice(0, pos);
   let inStr = null, lineComment = false, blockComment = false;
   for (let i = 0; i < text.length; i++) {
     const c = text[i], n = text[i + 1];
@@ -4268,7 +4897,7 @@ function scanTemplateEnd(s, i) {
 }
 
 function getQuoteContext(pos) {
-  const text = monacoModel.getValue().slice(0, pos);
+  const text = currentTextValue().slice(0, pos);
   let inStr = null, strStart = -1;
   for (let i = 0; i < text.length; i++) {
     const c = text[i], n = text[i + 1];
@@ -4337,9 +4966,9 @@ function showCompletionItems(items, start, prefix) {
 function _doRefresh(force, myId) {
   if (myId !== acRequestId) return;
 
-  const sel = editor.getSelection();
-  const start = monacoModel.getOffsetAt(sel.getStartPosition());
-  const end   = monacoModel.getOffsetAt(sel.getEndPosition());
+  const sel = monacoEditor.getSelection();
+  const start = positionToOffset(sel.getStartPosition());
+  const end   = positionToOffset(sel.getEndPosition());
   if (start !== end) { hideAutocomplete(); return; }
 
   const qctx = getQuoteContext(start);
@@ -4348,7 +4977,7 @@ function _doRefresh(force, myId) {
   acStringMode = false;
   acStringInfo = null;
 
-  const text = monacoModel.getValue();
+  const text = currentTextValue();
   const before   = text.slice(0, start);
   const m        = before.match(/[\p{L}_$][\p{L}\p{N}_$]*$/u);
   const prefix   = m ? m[0] : '';
@@ -4362,7 +4991,7 @@ function _doRefresh(force, myId) {
   if (ctx === 'comment') { hideAutocomplete(); return; }
 
   if (window.LuauLSP && window.LuauLSP.isReady()) {
-    window.LuauLSP.completion(start, monacoModel.getValue()).then((result) => {
+    window.LuauLSP.completion(start).then((result) => {
       if (myId !== acRequestId) return;
       if (!result) { hideAutocomplete(); return; }
       const list = Array.isArray(result) ? result : (result.items || []);
@@ -4374,6 +5003,7 @@ function _doRefresh(force, myId) {
         receiver = rm ? rm[0] : '';
       }
       const items = list.map((it) => convertLspItem(it, prefix, receiver));
+
       const filtered = prefix
         ? items.filter((it) => it.label.toLowerCase().indexOf(prefix.toLowerCase()) !== -1)
         : items;
@@ -4411,27 +5041,65 @@ function acceptCompletion() {
   const item = acItems[acIndex];
   if (!item) { hideAutocomplete(); return; }
 
-  const sel = editor.getSelection();
-  const end = monacoModel.getOffsetAt(sel.getEndPosition());
+  const sel = monacoEditor.getSelection();
+  const end = positionToOffset(sel.getEndPosition());
 
-  if (item._lspItem && item._lspItem.textEdit) {
-    const te = item._lspItem.textEdit;
-    const range = te.range || te.replace;
-    if (range) {
-      const startPos = { lineNumber: range.start.line + 1, column: range.start.character + 1 };
-      const endPos   = { lineNumber: range.end.line + 1,   column: range.end.character + 1 };
-      const newText  = te.newText !== undefined ? te.newText : te.replace;
-      editor.executeEdits('lsp', [{
+  if (item._lspItem) {
+    const lsp = item._lspItem;
+    const te  = lsp.textEdit;
+    let range   = null;
+    let newText = item.insert;
+
+    if (te) {
+      range   = te.range || te.replace;
+      newText = te.newText !== undefined ? te.newText : te.replace;
+    }
+
+    if (!range) {
+      const curEnd = positionToOffset(monacoEditor.getSelection().getEndPosition());
+      const sp = monacoModel.getPositionAt(acStart);
+      const ep = monacoModel.getPositionAt(curEnd);
+      range = {
+        start: { line: sp.lineNumber - 1, character: sp.column - 1 },
+        end:   { line: ep.lineNumber - 1, character: ep.column - 1 }
+      };
+    }
+
+    const startPos = { lineNumber: range.start.line + 1, column: range.start.character + 1 };
+    const endPos   = { lineNumber: range.end.line   + 1, column: range.end.character   + 1 };
+
+    if (item.isSnippet && newText) {
+      monacoEditor.executeEdits('lsp-snippet', [{
+        range: new monaco.Range(startPos.lineNumber, startPos.column, endPos.lineNumber, endPos.column),
+        text: '',
+        forceMoveMarkers: true
+      }]);
+      monacoEditor.setPosition(startPos);
+      const snippetCtrl = monacoEditor.getContribution('snippetController2');
+      if (snippetCtrl && typeof snippetCtrl.insert === 'function') {
+        snippetCtrl.insert(newText);
+      } else {
+        const plain = newText
+          .replace(/\$\{\d+:([^}]*)\}/g, '$1')
+          .replace(/\$\d+/g, '');
+        monacoEditor.executeEdits('lsp-snippet', [{
+          range: new monaco.Range(startPos.lineNumber, startPos.column, startPos.lineNumber, startPos.column),
+          text: plain
+        }]);
+      }
+    } else if (newText) {
+      monacoEditor.executeEdits('lsp', [{
         range: new monaco.Range(startPos.lineNumber, startPos.column, endPos.lineNumber, endPos.column),
         text: newText,
         forceMoveMarkers: true
       }]);
       const insertedEnd = monacoModel.getOffsetAt(startPos) + newText.length;
-      editor.setPosition(monacoModel.getPositionAt(insertedEnd));
-      hideAutocomplete();
-      editor.focus();
-      return;
+      monacoEditor.setPosition(monacoModel.getPositionAt(insertedEnd));
     }
+
+    hideAutocomplete();
+    monacoEditor.focus();
+    return;
   }
 
   const from = acStart;
@@ -4439,7 +5107,7 @@ function acceptCompletion() {
   let text = item.insert || item.label;
 
   if (/^function\s+\S/.test(text)) {
-    const full = monacoModel.getValue();
+    const full = currentTextValue();
     const lineStart = full.lastIndexOf('\n', from - 1) + 1;
     const lineBefore = full.slice(lineStart, from);
     if (/\bfunction\b/.test(lineBefore)) {
@@ -4452,15 +5120,15 @@ function acceptCompletion() {
 
   const startPos = monacoModel.getPositionAt(from);
   const endPos   = monacoModel.getPositionAt(to);
-  editor.executeEdits('ac', [{
+  monacoEditor.executeEdits('ac', [{
     range: new monaco.Range(startPos.lineNumber, startPos.column, endPos.lineNumber, endPos.column),
     text,
     forceMoveMarkers: true
   }]);
   const newPos = monacoModel.getPositionAt(caret);
-  editor.setPosition(newPos);
+  monacoEditor.setPosition(newPos);
   hideAutocomplete();
-  editor.focus();
+  monacoEditor.focus();
 }
 
 let resizeState = null;
@@ -4529,6 +5197,8 @@ acWidget.addEventListener('mousemove', (e) => {
 });
 
 async function initMonaco() {
+  const docsPromise = loadDocsJson();
+
   await new Promise((resolve, reject) => {
     if (typeof window.require !== 'function') {
       reject(new Error('Monaco loader not available'));
@@ -4546,10 +5216,69 @@ async function initMonaco() {
     window.require(['vs/editor/editor.main'], resolve, reject);
   });
 
+  await docsPromise;
+
   defineCustomTheme();
   registerLuauMonarch();
 
-  editor = monaco.editor.create(document.getElementById('monaco'), {
+  function normalizeHoverFences(md) {
+    if (typeof md !== 'string' || !md) return md;
+    md = md.replace(/```(?:luau|lua-lsp|luau-lsp)\b/gi, '```lua');
+    if (!/```/.test(md)) {
+      const parts = md.split(/\n\s*\n/);
+      const sig = (parts.shift() || '').trim();
+      if (sig) {
+        const rest = parts.join('\n\n').trim();
+        md = '```lua\n' + sig + '\n```' + (rest ? '\n\n' + rest : '');
+      }
+    }
+    return md;
+  }
+  function toHoverMarkdown(c) {
+    if (typeof c === 'string') return { value: normalizeHoverFences(c) };
+    if (c && typeof c === 'object' && typeof c.value === 'string') {
+      if (c.kind === 'plaintext') {
+        return { value: '```lua\n' + c.value.replace(/```/g, '') + '\n```' };
+      }
+      return { value: normalizeHoverFences(c.value) };
+    }
+    return c;
+  }
+  monaco.languages.registerHoverProvider('lua', {
+    provideHover: async function (model, position) {
+      if (!window.LuauLSP || !window.LuauLSP.isReady()) return null;
+      const offset = model.getOffsetAt(position);
+      try {
+        const res = await window.LuauLSP.hover(offset);
+        if (!res || !res.contents) return null;
+
+        const raw = res.contents;
+        let contents;
+        if (typeof raw === 'string') {
+          contents = [{ value: normalizeHoverFences(raw) }];
+        } else if (Array.isArray(raw)) {
+          contents = raw.map(toHoverMarkdown);
+        } else {
+          contents = [toHoverMarkdown(raw)];
+        }
+
+        let range = undefined;
+        if (res.range) {
+          range = new monaco.Range(
+            res.range.start.line + 1,
+            res.range.start.character + 1,
+            res.range.end.line + 1,
+            res.range.end.character + 1
+          );
+        }
+        return { range, contents };
+      } catch (e) {
+        return null;
+      }
+    }
+  });
+
+  monacoEditor = monaco.editor.create(document.getElementById('monaco'), {
     value: INITIAL_TEXT,
     language: 'lua',
     theme: 'pforge-dark',
@@ -4611,29 +5340,28 @@ async function initMonaco() {
     overviewRulerLanes: 0
   });
 
-  monacoModel = editor.getModel();
+  monacoModel = monacoEditor.getModel();
   monacoReady = true;
 
-  monacoEditor = editor;
-  bridgeSyncing = true;
-  monacoModel.setValue(INITIAL_TEXT);
-  bridgeSyncing = false;
-  currentText = INITIAL_TEXT;
+  try { Splash.setTaskMsg('monaco', 'Editor Monaco pronto'); Splash.completeTask('monaco'); } catch(e){}
 
-  editor.onDidChangeModelContent(() => {
-    if (bridgeSyncing) return;
-    currentText = monacoModel.getValue();
-    textVersion++;
-    if (activeTabId) {
-      const d = scriptData.get(activeTabId);
-      if (d) d.content = currentText;
+  async function runLuau() {
+    if (!window.__luauState) {
+      console.warn('[luau] ainda carregando...');
+      return;
     }
-    if (window.LuauLSP && window.LuauLSP.isReady()) {
-      window.LuauLSP.didChange(currentText);
+    const code = monacoModel.getValue();
+    try {
+      const fn = window.__luauState.loadstring(code, 'editor', true);
+      if (typeof fn !== 'function') { console.error('[luau]', fn); return; }
+      await fn();
+    } catch (e) {
+      console.error('[luau]', (e && e.message) || String(e));
     }
-  });
+  }
+  monacoEditor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, runLuau);
 
-  editor.onDidChangeCursorPosition((e) => {
+  monacoEditor.onDidChangeCursorPosition((e) => {
     caretOffset = monacoModel.getOffsetAt(e.position);
     cursorPosEl.textContent = 'Ln ' + e.position.lineNumber + ', Col ' + e.position.column;
 
@@ -4653,8 +5381,8 @@ async function initMonaco() {
     hideAutocomplete();
   });
 
-  editor.onDidChangeCursorSelection(() => {
-    const sel = editor.getSelection();
+  monacoEditor.onDidChangeCursorSelection(() => {
+    const sel = monacoEditor.getSelection();
     lastSel.start = monacoModel.getOffsetAt(sel.getStartPosition());
     lastSel.end   = monacoModel.getOffsetAt(sel.getEndPosition());
     lastSel.anchor = lastSel.start;
@@ -4662,32 +5390,46 @@ async function initMonaco() {
     if (acOpen) positionAutocomplete();
   });
 
-  editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Space, () => {
-    refreshAutocomplete(true);
+  monacoEditor.onDidChangeModelContent(() => {
+    if (bridgeSyncing) return;
+    currentText = monacoModel.getValue();
+    textVersion++;
+    if (activeTabId) {
+      const d = scriptData.get(activeTabId);
+      if (d) d.content = currentText;
+    }
+    if (window.LuauLSP && window.LuauLSP.isReady()) {
+      window.LuauLSP.didChange(currentText);
+    }
   });
 
-  editor.addCommand(monaco.KeyCode.DownArrow,   () => { if (acOpen) moveSelection(1);  else editor.trigger('kb','cursorDown',{}); });
-  editor.addCommand(monaco.KeyCode.UpArrow,     () => { if (acOpen) moveSelection(-1); else editor.trigger('kb','cursorUp',{});   });
-  editor.addCommand(monaco.KeyCode.PageDown,    () => { if (acOpen) moveSelection(8);  else editor.trigger('kb','cursorPageDown',{}); });
-  editor.addCommand(monaco.KeyCode.PageUp,      () => { if (acOpen) moveSelection(-8); else editor.trigger('kb','cursorPageUp',{}); });
-  editor.onKeyDown((e) => {
-    if (e.keyCode === monaco.KeyCode.Enter && acOpen && acItems.length) {  e.preventDefault();  e.stopPropagation();
-      acceptCompletion();
-    } });
-  editor.addCommand(monaco.KeyCode.Tab,         () => { if (acOpen && acItems.length) acceptCompletion(); else editor.trigger('kb','tab',{}); });
-  editor.addCommand(monaco.KeyCode.Escape,      () => { if (acOpen) hideAutocomplete(); });
-
   monacoModel.onDidChangeContent(() => {
-    if (bridgeSyncing) return;
-    if (window.LuauLSP && window.LuauLSP.isReady()) {
-      window.LuauLSP.didChange(monacoModel.getValue());
-    }
     refreshAutocomplete();
   });
 
-  editor.onMouseDown(() => { if (acOpen) hideAutocomplete(); });
+  monacoEditor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Space, () => {
+    refreshAutocomplete(true);
+  });
 
-  editor.onDidScrollChange(() => { if (acOpen) positionAutocomplete(); });
+  monacoEditor.addCommand(monaco.KeyCode.DownArrow,   () => { if (acOpen) moveSelection(1);  else monacoEditor.trigger('kb','cursorDown',{}); });
+  monacoEditor.addCommand(monaco.KeyCode.UpArrow,     () => { if (acOpen) moveSelection(-1); else monacoEditor.trigger('kb','cursorUp',{});   });
+  monacoEditor.addCommand(monaco.KeyCode.PageDown,    () => { if (acOpen) moveSelection(8);  else monacoEditor.trigger('kb','cursorPageDown',{}); });
+  monacoEditor.addCommand(monaco.KeyCode.PageUp,      () => { if (acOpen) moveSelection(-8); else monacoEditor.trigger('kb','cursorPageUp',{}); });
+  monacoEditor.onKeyDown((e) => {
+    if (e.keyCode === monaco.KeyCode.Enter && acOpen && acItems.length) {
+      e.preventDefault(); e.stopPropagation();
+      acceptCompletion();
+    }
+  });
+  monacoEditor.addCommand(monaco.KeyCode.Tab, () => {
+    if (acOpen && acItems.length) acceptCompletion();
+    else monacoEditor.trigger('kb','tab',{});
+  });
+  monacoEditor.addCommand(monaco.KeyCode.Escape, () => { if (acOpen) hideAutocomplete(); });
+
+  monacoEditor.onMouseDown(() => { if (acOpen) hideAutocomplete(); });
+
+  monacoEditor.onDidScrollChange(() => { if (acOpen) positionAutocomplete(); });
   window.addEventListener('resize', () => {
     if (acOpen) { updateWidgetSize(); positionAutocomplete(); }
   });
@@ -4698,7 +5440,10 @@ async function initMonaco() {
   }
 
   if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(() => { try { monaco.editor.remeasureFonts(); } catch (_) {} });
+    document.fonts.ready.then(() => {
+      try { monaco.editor.remeasureFonts(); } catch (_) {}
+      try { Splash.completeTask('fonts'); } catch(e) {}
+    });
   }
 
   setStatus('Monaco Luau: ready');
@@ -4711,24 +5456,21 @@ async function initMonaco() {
     }).catch((e) => {
       console.error('[LSP init]', e);
       setStatus('Monaco Luau: ready (LSP failed)');
+      try { Splash.completeTask('lsp', true); } catch(err){}
     });
   }
 
   if (!(window.matchMedia && window.matchMedia('(pointer: coarse)').matches)) {
-    editor.focus();
+    monacoEditor.focus();
   }
 }
-
-let lastTextVersionSeenByCursor = -1;
 
 initMonaco().catch(err => {
   console.error('[Monaco]', err);
   setStatus('Monaco: error (' + (err && err.message ? err.message : '') + ')');
+  try { Splash.completeTask('monaco', true); } catch(e){}
 });
 
-/* ==========================================================================
-   MONACO BRIDGE
-   ========================================================================== */
 function setSelectionOffsets(start, end) {
   if (end === undefined) end = start;
   if (!monacoEditor) { lastSel = { start, end, anchor: start, focus: end }; return; }
@@ -4753,9 +5495,9 @@ function refreshUI() {
   const pos = monacoEditor.getPosition();
   if (pos) cursorPosEl.textContent = 'Ln ' + pos.lineNumber + ', Col ' + pos.column;
 }
-function renderAll()            { /* Monaco cuida disso */ }
-function syncEditorScroll()     { /* Monaco cuida disso */ }
-function scheduleSyncMonacoModel(){ /* não há TS worker */ }
+function renderAll()            { }
+function syncEditorScroll()     { }
+function scheduleSyncMonacoModel(){ }
 
 function loadEditorContent(text) {
   currentText = text || '';
@@ -4853,7 +5595,6 @@ function refreshNodeDisabledState(node) {
   node.classList.toggle('disabled', !!(d && d.enabled === false));
 }
 
-/* ----- Properties panel ----- */
 function showProperties(node) {
   if (node.dataset && node.dataset.studioGroupId) { showGroupProperties(node); return; }
   if (!node) return;
@@ -5803,7 +6544,6 @@ function getParentGroupIdFromNode(node) {
   return null;
 }
 
-
 function outsideContextHandler(e) {
   if (currentContextMenu && !currentContextMenu.contains(e.target)) {
     closeContextMenu();
@@ -5959,19 +6699,19 @@ treeViewEl.addEventListener('contextmenu', (e) => {
 const explorerWindow = document.getElementById('explorerWindow');
 const resizeHandle   = document.getElementById('resizeHandle');
 let isResizingExplorer = false;
-let startX, startWidth;
+let startXExpl, startWidthExpl;
 resizeHandle.addEventListener('mousedown', (e) => {
   isResizingExplorer = true;
-  startX = e.clientX;
-  startWidth = explorerWindow.offsetWidth;
+  startXExpl = e.clientX;
+  startWidthExpl = explorerWindow.offsetWidth;
   resizeHandle.classList.add('active');
   document.body.style.cursor = 'ew-resize';
   e.preventDefault();
 });
 document.addEventListener('mousemove', (e) => {
   if (!isResizingExplorer) return;
-  const delta = startX - e.clientX;
-  let newWidth = startWidth + delta;
+  const delta = startXExpl - e.clientX;
+  let newWidth = startWidthExpl + delta;
   if (newWidth < 200) newWidth = 200;
   const maxWidth = window.innerWidth / 2;
   if (newWidth > maxWidth) newWidth = maxWidth;
@@ -5985,9 +6725,6 @@ document.addEventListener('mouseup', () => {
   }
 });
 
-/* ==========================================================================
-   BUNDLER
-   ========================================================================== */
 const CATEGORY_TO_SCOPE = {
   'Workspace': 'client',
   'Players': 'shared',
@@ -6052,9 +6789,6 @@ function compileAllBundles() {
   };
 }
 
-/* ==========================================================================
-   LUAU: bloco HTML (bundle + boot) para o iframe
-   ========================================================================== */
 const LUAU_WEB_URL = 'https://cdn.jsdelivr.net/gh/Zennokaidy/luau-web@v1.4.0-mem/dist/luauweb.min.js';
 
 const LUAU_PRELUDE = [
@@ -6561,14 +7295,12 @@ const Studio = (function() {
     const rec = groups.get(id);
     if (!rec) return;
 
-    // Reparentar filhos diretos (parts)
     for (const [pid, p] of Array.from(parts)) {
       if (p.parentId === id) {
         if (alsoRemoveChildren) removePart(pid);
         else removePartFromGroup(pid);
       }
     }
-    // Reparentar sub-grupos
     for (const [, g] of groups) {
       if (g.parentId === id) {
         if (alsoRemoveChildren) removeGroup(g.id, true);
@@ -6588,7 +7320,6 @@ const Studio = (function() {
     const group = groups.get(groupId);
     if (!part || !group || !part.mesh) return;
 
-    // Preserva transformação de mundo ao reparentar
     part.mesh.updateMatrixWorld(true);
     const wp = new T.Vector3(), wq = new T.Quaternion(), ws = new T.Vector3();
     part.mesh.matrixWorld.decompose(wp, wq, ws);
@@ -6649,13 +7380,10 @@ const Studio = (function() {
     const centerWorld = new T.Vector3();
     box.getCenter(centerWorld);
 
-    // Onde o grupo precisa estar (em coordenadas do pai) pra que
-    // seu pivô (origem local) caia no centro do bbox dos filhos.
     const parent = obj.parent;
     const parentInv = parent ? parent.matrixWorld.clone().invert() : new T.Matrix4();
     const newLocalPos = centerWorld.clone().applyMatrix4(parentInv);
 
-    // Guarda o world matrix de cada filho ANTES de mover o grupo.
     const childWorlds = [];
     for (let i = 0; i < obj.children.length; i++) {
       const c = obj.children[i];
@@ -6663,12 +7391,9 @@ const Studio = (function() {
       childWorlds.push({ child: c, world: c.matrixWorld.clone() });
     }
 
-    // Move o pivô do grupo.
     obj.position.copy(newLocalPos);
     obj.updateMatrixWorld(true);
 
-    // Reposiciona cada filho em espaço local pra que o world dele
-    // fique idêntico ao de antes.
     const invGroupWorld = obj.matrixWorld.clone().invert();
     for (let i = 0; i < childWorlds.length; i++) {
       const c = childWorlds[i].child;
@@ -6745,7 +7470,6 @@ const Studio = (function() {
     if (typeof onPartsChanged === 'function') onPartsChanged(Array.from(parts.values()));
   }
 
-  /* ---------------- GIZMOS ---------------- */
   let gizmoGroup = null, gizmoPart = null, gizmoMode = 'move';
   let draggingGizmoAxis = null, draggingGizmoMode = null, draggingGizmoStart = null;
   const GIZMO_COLORS = { x: 0xff4444, y: 0x44ff44, z: 0x4488ff };
@@ -7113,7 +7837,6 @@ const Studio = (function() {
       '    }',
       '  } catch (e) {}',
       '',
-      '  /* CENA DEFAULT */',
       '  S.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 4000);',
       '  S.camera.position.set(8, 8, 12);',
       '  S.camera.lookAt(0, 0, 0);',
@@ -7124,7 +7847,6 @@ const Studio = (function() {
       '  ds.background = new THREE.Color(0x2a2d33);',
       '  S.defaultScene = ds;',
       '',
-      '  /* Luzes */',
       '  ds.add(new THREE.AmbientLight(0xffffff, 0.65));',
       '  ds.add(new THREE.HemisphereLight(0xdfeaff, 0x303040, 0.55));',
       '  var __sun = new THREE.DirectionalLight(0xffffff, 1.0);',
@@ -7134,7 +7856,6 @@ const Studio = (function() {
       '  __fill.position.set(30, 40, 30);',
       '  ds.add(__fill);',
       '',
-      '  /* Chão + Grid */',
       '  var __ground = new THREE.Mesh(',
       '    new THREE.PlaneGeometry(200, 200),',
       '    new THREE.MeshStandardMaterial({ color: 0x353941, roughness: 1.0, metalness: 0.0 })',
@@ -7184,9 +7905,6 @@ const Studio = (function() {
       '    var isDefaultCanvas = this.domElement === dc;',
       '',
       '    if (isGameCanvas) {',
-      '      // Câmera livre enquanto o script não travou: a pose do studio é',
-      '      // aplicada NA câmera do jogo. Mas nada de mexer na câmera se o',
-      '      // script já chamou setFreeCamera(false).',
       '      if (S.freeCameraEnabled !== false && camera && camera.position) {',
       '        var pp = S._pendingPose;',
       '        if (pp) {',
@@ -7243,9 +7961,6 @@ const Studio = (function() {
   }
 
   function loadIntoIframe() {
-    // Overview = Edit mode (Roblox Studio): mostra a cena do mundo (chão,
-    // grid, blocos criados por scripts) mas SEM animar — os scripts rodam
-    // só uma vez pra montar a cena estática. Câmera sempre do editor.
     const all = compileAllBundles();
     const bundle = all ? [all.server, all.client].filter(Boolean).join('\n\n') : null;
     const useReal = !!bundle;
@@ -7272,7 +7987,6 @@ const Studio = (function() {
     const newUrl = URL.createObjectURL(blob);
     frame._blobUrl = newUrl;
     frame.src = newUrl;
-    // Só revoga o URL antigo depois que o novo documento já carregou com folga.
     if (oldUrl) {
       setTimeout(function () {
         try { URL.revokeObjectURL(oldUrl); } catch (e) {}
@@ -7281,10 +7995,7 @@ const Studio = (function() {
   }
 
   const input = { keys: {}, right: false, lastX: 0, lastY: 0 };
-
-  // No-op: o overview NÃO deve recarregar enquanto o usuário digita.
-  // Igual ao Roblox Studio — edições só tomam efeito ao apertar Play.
-  function markDirty() { /* no-op */ }
+  function markDirty() { }
 
   function onFrameLoad() {
     applyPoseToIframe();
@@ -7300,13 +8011,11 @@ const Studio = (function() {
 
     const activeScene = w.__studio.scene || w.__studio.defaultScene || null;
     if (activeScene) {
-      // Grupos primeiro (pais antes dos filhos)
       for (let i = 0; i < pendingGroups.length; i++) {
         const g = pendingGroups[i];
         if (!g.obj.parent) getOrCreateGroupObj(g, activeScene);
       }
       pendingGroups.length = 0;
-      // Depois parts
       for (let i = 0; i < pendingSpawns.length; i++) {
         if (!pendingSpawns[i].mesh) spawnMeshInto(pendingSpawns[i], activeScene);
       }
@@ -7588,7 +8297,6 @@ const Studio = (function() {
     lastT = t;
     updateFly(dt);
 
-    // Garante matrixWorld atualizado ANTES do gizmo ler.
     const scn = studioScene();
     if (scn) { try { scn.updateMatrixWorld(true); } catch(e) {} }
 
@@ -7644,9 +8352,7 @@ const Studio = (function() {
 
   function setPlayMode(on) {
     const w = studioWindow();
-    if (w && w.__studio) {
-      w.__studio.playMode = !!on;
-    }
+    if (w && w.__studio) w.__studio.playMode = !!on;
     const vp = document.getElementById('viewport');
     if (vp) vp.classList.toggle('playing', !!on);
   }
@@ -7674,9 +8380,6 @@ const Studio = (function() {
   };
 })();
 
-/* ==========================================================================
-   PREVIEW
-   ========================================================================== */
 let currentBlobUrl = null;
 let previewConsoleEditor = null;
 let previewConsoleOpen = false;
@@ -8187,9 +8890,6 @@ function appendLogToPanel(type, text) {
   else pendingConsoleLogs.push({ type: type, text: text });
 }
 
-/* ==========================================================================
-   NEXUS + GUI BUILDER + GITHUB IMPORT
-   ========================================================================== */
 const GUI_BUILDER_URL = 'https://zennokaidy.github.io/GuiBuilder/';
 
 function setupNexusAI() {
@@ -8385,6 +9085,542 @@ function setupNexusAI() {
   document.addEventListener('mousemove', nexusMoveResize);
   document.addEventListener('mouseup', nexusEndResize);
   nexusTitleBar.addEventListener('dblclick', (e) => { e.preventDefault(); toggleNexusMinimize(); });
+}
+
+/* ==========================================================================
+   TOOLBOX — modelos 3D (cada modelo = composição de primitivas)
+   ========================================================================== */
+const TOOLBOX_MODELS = [
+  // ---------- PARTS ----------
+  { id: 'block', name: 'Block', cat: 'Parts', icon: 'fa-cube',
+    parts: [{ shape: 'box', size: [2,2,2], color: 0x4fa8d8, position: [0,1,0] }] },
+  { id: 'sphere', name: 'Sphere', cat: 'Parts', icon: 'fa-circle',
+    parts: [{ shape: 'sphere', size: [2,2,2], color: 0xe04343, position: [0,1,0] }] },
+  { id: 'cylinder', name: 'Cylinder', cat: 'Parts', icon: 'fa-database',
+    parts: [{ shape: 'cylinder', size: [2,2,2], color: 0x6bcf7f, position: [0,1,0] }] },
+  { id: 'wedge', name: 'Wedge', cat: 'Parts', icon: 'fa-caret-up',
+    parts: [{ shape: 'wedge', size: [2,2,2], color: 0xf5b041, position: [0,1,0] }] },
+  { id: 'torus', name: 'Torus', cat: 'Parts', icon: 'fa-circle-notch',
+    parts: [{ shape: 'torus', size: [2,2,2], color: 0xb180d7, position: [0,1,0] }] },
+
+  // ---------- BUILDINGS ----------
+  { id: 'house', name: 'House', cat: 'Buildings', icon: 'fa-house',
+    parts: [
+      { shape: 'box', size: [6, 0.3, 6], color: 0x8a7055, position: [0, 0.15, 0] },
+      { shape: 'box', size: [1.5, 4, 0.3], color: 0xe8d8c0, position: [-2.25, 2.15, 3] },
+      { shape: 'box', size: [1.5, 4, 0.3], color: 0xe8d8c0, position: [2.25, 2.15, 3] },
+      { shape: 'box', size: [3, 1, 0.3], color: 0xe8d8c0, position: [0, 3.65, 3] },
+      { shape: 'box', size: [6, 4, 0.3], color: 0xe8d8c0, position: [0, 2.15, -3] },
+      { shape: 'box', size: [0.3, 4, 6], color: 0xe8d8c0, position: [-3, 2.15, 0] },
+      { shape: 'box', size: [0.3, 4, 6], color: 0xe8d8c0, position: [3, 2.15, 0] },
+      { shape: 'box', size: [6.8, 0.3, 4], color: 0xb03a3a, position: [0, 5, 1.5], rotation: [0.55, 0, 0] },
+      { shape: 'box', size: [6.8, 0.3, 4], color: 0xb03a3a, position: [0, 5, -1.5], rotation: [-0.55, 0, 0] },
+    ]
+  },
+  { id: 'tower', name: 'Tower', cat: 'Buildings', icon: 'fa-chess-rook',
+    parts: [
+      { shape: 'box', size: [3, 6, 3], color: 0x9a9a9a, position: [0, 3, 0] },
+      { shape: 'box', size: [3.6, 0.6, 3.6], color: 0x888888, position: [0, 6.3, 0] },
+      { shape: 'box', size: [3.4, 0.4, 3.4], color: 0x777777, position: [0, 0.2, 0] },
+      { shape: 'box', size: [0.6, 1.2, 0.3], color: 0xffdd66, position: [0, 4, 1.55] },
+      { shape: 'box', size: [0.6, 1.2, 0.3], color: 0xffdd66, position: [0, 2, 1.55] },
+      { shape: 'box', size: [0.6, 1.2, 0.3], color: 0xffdd66, position: [0, 4, -1.55] },
+      { shape: 'box', size: [0.6, 1.2, 0.3], color: 0xffdd66, position: [0, 2, -1.55] },
+    ]
+  },
+  { id: 'wall', name: 'Wall', cat: 'Buildings', icon: 'fa-square',
+    parts: [
+      { shape: 'box', size: [6, 3, 0.5], color: 0x9a9a9a, position: [0, 1.5, 0] },
+      { shape: 'box', size: [6.3, 0.3, 0.7], color: 0x777777, position: [0, 3.15, 0] },
+    ]
+  },
+  { id: 'pillar', name: 'Pillar', cat: 'Buildings', icon: 'fa-grip-lines-vertical',
+    parts: [
+      { shape: 'box', size: [1.4, 0.4, 1.4], color: 0xcccccc, position: [0, 0.2, 0] },
+      { shape: 'cylinder', size: [1, 5, 1], color: 0xdddddd, position: [0, 3, 0] },
+      { shape: 'box', size: [1.6, 0.5, 1.6], color: 0xcccccc, position: [0, 5.75, 0] },
+    ]
+  },
+  { id: 'platform', name: 'Platform', cat: 'Buildings', icon: 'fa-square-full',
+    parts: [
+      { shape: 'box', size: [6, 0.4, 6], color: 0x4fa8d8, position: [0, 2.2, 0] },
+      { shape: 'box', size: [0.5, 2, 0.5], color: 0x2a5a8a, position: [-2.5, 1, -2.5] },
+      { shape: 'box', size: [0.5, 2, 0.5], color: 0x2a5a8a, position: [ 2.5, 1, -2.5] },
+      { shape: 'box', size: [0.5, 2, 0.5], color: 0x2a5a8a, position: [-2.5, 1,  2.5] },
+      { shape: 'box', size: [0.5, 2, 0.5], color: 0x2a5a8a, position: [ 2.5, 1,  2.5] },
+    ]
+  },
+  { id: 'bridge', name: 'Bridge', cat: 'Buildings', icon: 'fa-road',
+    parts: [
+      { shape: 'box', size: [10, 0.4, 3], color: 0xb08050, position: [0, 3, 0] },
+      { shape: 'box', size: [0.8, 3, 0.8], color: 0x8a8a8a, position: [ 4, 1.5, 0] },
+      { shape: 'box', size: [0.8, 3, 0.8], color: 0x8a8a8a, position: [-4, 1.5, 0] },
+      { shape: 'box', size: [10, 0.8, 0.2], color: 0x8a5a30, position: [0, 3.6,  1.5] },
+      { shape: 'box', size: [10, 0.8, 0.2], color: 0x8a5a30, position: [0, 3.6, -1.5] },
+    ]
+  },
+
+  // ---------- NATURE ----------
+  { id: 'tree', name: 'Tree', cat: 'Nature', icon: 'fa-tree',
+    parts: [
+      { shape: 'cylinder', size: [0.6, 3, 0.6], color: 0x6b4a2a, position: [0, 1.5, 0] },
+      { shape: 'sphere', size: [3.5, 3, 3.5], color: 0x3a8a3a, position: [0, 3.8, 0] },
+      { shape: 'sphere', size: [2.2, 2, 2.2], color: 0x4a9a4a, position: [0.8, 4.8, 0.5] },
+      { shape: 'sphere', size: [2, 1.8, 2], color: 0x3a8a3a, position: [-0.7, 4.4, -0.5] },
+    ]
+  },
+  { id: 'pine', name: 'Pine', cat: 'Nature', icon: 'fa-tree',
+    parts: [
+      { shape: 'cylinder', size: [0.5, 1.5, 0.5], color: 0x5a3a1a, position: [0, 0.75, 0] },
+      { shape: 'sphere', size: [3.5, 1.4, 3.5], color: 0x2a6a2a, position: [0, 1.6, 0] },
+      { shape: 'sphere', size: [2.7, 1.2, 2.7], color: 0x2a7a2a, position: [0, 2.5, 0] },
+      { shape: 'sphere', size: [1.9, 1.1, 1.9], color: 0x2a8a2a, position: [0, 3.3, 0] },
+      { shape: 'sphere', size: [1.1, 0.9, 1.1], color: 0x3a9a3a, position: [0, 4.0, 0] },
+    ]
+  },
+  { id: 'rock', name: 'Rock', cat: 'Nature', icon: 'fa-mountain',
+    parts: [
+      { shape: 'sphere', size: [2.4, 1.6, 2.6], color: 0x7a7a7a, position: [0, 0.7, 0] },
+      { shape: 'sphere', size: [1.2, 1, 1.4], color: 0x6a6a6a, position: [1.1, 0.5, 0.4] },
+      { shape: 'sphere', size: [0.9, 0.7, 1], color: 0x8a8a8a, position: [-0.9, 0.4, -0.5] },
+    ]
+  },
+  { id: 'bush', name: 'Bush', cat: 'Nature', icon: 'fa-leaf',
+    parts: [
+      { shape: 'sphere', size: [1.6, 1.3, 1.6], color: 0x3a8a3a, position: [-0.4, 0.65, 0] },
+      { shape: 'sphere', size: [1.4, 1.1, 1.4], color: 0x4a9a4a, position: [0.5, 0.55, 0.3] },
+      { shape: 'sphere', size: [1.1, 0.9, 1.1], color: 0x2a7a2a, position: [0, 0.5, -0.5] },
+    ]
+  },
+
+  // ---------- FURNITURE ----------
+  { id: 'table', name: 'Table', cat: 'Furniture', icon: 'fa-table',
+    parts: [
+      { shape: 'box', size: [3, 0.2, 2], color: 0x8a5a30, position: [0, 1.5, 0] },
+      { shape: 'box', size: [0.15, 1.5, 0.15], color: 0x6a4a20, position: [-1.35, 0.75, -0.85] },
+      { shape: 'box', size: [0.15, 1.5, 0.15], color: 0x6a4a20, position: [ 1.35, 0.75, -0.85] },
+      { shape: 'box', size: [0.15, 1.5, 0.15], color: 0x6a4a20, position: [-1.35, 0.75,  0.85] },
+      { shape: 'box', size: [0.15, 1.5, 0.15], color: 0x6a4a20, position: [ 1.35, 0.75,  0.85] },
+    ]
+  },
+  { id: 'chair', name: 'Chair', cat: 'Furniture', icon: 'fa-chair',
+    parts: [
+      { shape: 'box', size: [1, 0.15, 1], color: 0x8a5a30, position: [0, 0.9, 0] },
+      { shape: 'box', size: [1, 1, 0.15], color: 0x8a5a30, position: [0, 1.5, -0.425] },
+      { shape: 'box', size: [0.12, 0.9, 0.12], color: 0x6a4a20, position: [-0.4, 0.45, -0.4] },
+      { shape: 'box', size: [0.12, 0.9, 0.12], color: 0x6a4a20, position: [ 0.4, 0.45, -0.4] },
+      { shape: 'box', size: [0.12, 0.9, 0.12], color: 0x6a4a20, position: [-0.4, 0.45,  0.4] },
+      { shape: 'box', size: [0.12, 0.9, 0.12], color: 0x6a4a20, position: [ 0.4, 0.45,  0.4] },
+    ]
+  },
+  { id: 'sofa', name: 'Sofa', cat: 'Furniture', icon: 'fa-couch',
+    parts: [
+      { shape: 'box', size: [3, 0.7, 1.3], color: 0x8a3a3a, position: [0, 0.5, 0] },
+      { shape: 'box', size: [3, 1, 0.3], color: 0x8a3a3a, position: [0, 1.1, -0.5] },
+      { shape: 'box', size: [0.3, 0.6, 1.3], color: 0x8a3a3a, position: [-1.35, 1.05, 0] },
+      { shape: 'box', size: [0.3, 0.6, 1.3], color: 0x8a3a3a, position: [ 1.35, 1.05, 0] },
+    ]
+  },
+  { id: 'bed', name: 'Bed', cat: 'Furniture', icon: 'fa-bed',
+    parts: [
+      { shape: 'box', size: [2, 0.5, 3], color: 0x6a4a30, position: [0, 0.25, 0] },
+      { shape: 'box', size: [1.9, 0.3, 2.8], color: 0xf0f0f0, position: [0, 0.65, 0] },
+      { shape: 'box', size: [1.4, 0.2, 0.5], color: 0xffffff, position: [0, 0.9, -1.05] },
+      { shape: 'box', size: [2, 1.2, 0.2], color: 0x6a4a30, position: [0, 1.1, -1.4] },
+    ]
+  },
+
+  // ---------- VEHICLES ----------
+  { id: 'car', name: 'Car', cat: 'Vehicles', icon: 'fa-car',
+    parts: [
+      { shape: 'box', size: [3, 0.8, 1.6], color: 0xe04343, position: [0, 0.85, 0] },
+      { shape: 'box', size: [1.6, 0.8, 1.4], color: 0xc03030, position: [-0.2, 1.55, 0] },
+      { shape: 'cylinder', size: [0.7, 0.35, 0.7], color: 0x222222, position: [ 1, 0.35,  0.9], rotation: [Math.PI/2, 0, 0] },
+      { shape: 'cylinder', size: [0.7, 0.35, 0.7], color: 0x222222, position: [ 1, 0.35, -0.9], rotation: [Math.PI/2, 0, 0] },
+      { shape: 'cylinder', size: [0.7, 0.35, 0.7], color: 0x222222, position: [-1, 0.35,  0.9], rotation: [Math.PI/2, 0, 0] },
+      { shape: 'cylinder', size: [0.7, 0.35, 0.7], color: 0x222222, position: [-1, 0.35, -0.9], rotation: [Math.PI/2, 0, 0] },
+    ]
+  },
+  { id: 'rocket', name: 'Rocket', cat: 'Vehicles', icon: 'fa-rocket',
+    parts: [
+      { shape: 'cylinder', size: [1, 3, 1], color: 0xdddddd, position: [0, 1.5, 0] },
+      { shape: 'sphere', size: [1, 1, 1], color: 0xdddddd, position: [0, 3.2, 0] },
+      { shape: 'box', size: [0.3, 1.5, 0.9], color: 0xe04343, position: [ 0.75, 0.75, 0] },
+      { shape: 'box', size: [0.3, 1.5, 0.9], color: 0xe04343, position: [-0.75, 0.75, 0] },
+      { shape: 'box', size: [0.9, 1.5, 0.3], color: 0xe04343, position: [0, 0.75,  0.75] },
+      { shape: 'box', size: [0.9, 1.5, 0.3], color: 0xe04343, position: [0, 0.75, -0.75] },
+      { shape: 'sphere', size: [0.5, 0.5, 0.5], color: 0x88ccff, position: [0.51, 2, 0] },
+    ]
+  },
+
+  // ---------- MISC ----------
+  { id: 'crate', name: 'Crate', cat: 'Misc', icon: 'fa-box',
+    parts: [
+      { shape: 'box', size: [2, 2, 2], color: 0xb08050, position: [0, 1, 0] },
+      { shape: 'box', size: [2.1, 0.15, 2.1], color: 0x6a4a20, position: [0, 0.2, 0] },
+      { shape: 'box', size: [2.1, 0.15, 2.1], color: 0x6a4a20, position: [0, 1.8, 0] },
+    ]
+  },
+  { id: 'barrel', name: 'Barrel', cat: 'Misc', icon: 'fa-wine-bottle',
+    parts: [
+      { shape: 'cylinder', size: [1.5, 2, 1.5], color: 0x8a5a30, position: [0, 1, 0] },
+      { shape: 'cylinder', size: [1.6, 0.15, 1.6], color: 0x4a3a20, position: [0, 1.6, 0] },
+      { shape: 'cylinder', size: [1.6, 0.15, 1.6], color: 0x4a3a20, position: [0, 0.4, 0] },
+    ]
+  },
+  { id: 'ladder', name: 'Ladder', cat: 'Misc', icon: 'fa-stairs',
+    parts: [
+      { shape: 'box', size: [0.15, 5, 0.15], color: 0xc8a880, position: [-0.5, 2.5, 0] },
+      { shape: 'box', size: [0.15, 5, 0.15], color: 0xc8a880, position: [ 0.5, 2.5, 0] },
+      { shape: 'box', size: [1.15, 0.12, 0.12], color: 0xc8a880, position: [0, 0.5, 0] },
+      { shape: 'box', size: [1.15, 0.12, 0.12], color: 0xc8a880, position: [0, 1.5, 0] },
+      { shape: 'box', size: [1.15, 0.12, 0.12], color: 0xc8a880, position: [0, 2.5, 0] },
+      { shape: 'box', size: [1.15, 0.12, 0.12], color: 0xc8a880, position: [0, 3.5, 0] },
+      { shape: 'box', size: [1.15, 0.12, 0.12], color: 0xc8a880, position: [0, 4.5, 0] },
+    ]
+  },
+  { id: 'fence', name: 'Fence', cat: 'Misc', icon: 'fa-border-all',
+    parts: [
+      { shape: 'box', size: [0.25, 2.2, 0.25], color: 0x8a5a30, position: [-2, 1.1, 0] },
+      { shape: 'box', size: [0.25, 2.2, 0.25], color: 0x8a5a30, position: [ 2, 1.1, 0] },
+      { shape: 'box', size: [4.3, 0.2, 0.15], color: 0xc8a880, position: [0, 1.6, 0] },
+      { shape: 'box', size: [4.3, 0.2, 0.15], color: 0xc8a880, position: [0, 0.6, 0] },
+      { shape: 'box', size: [0.15, 1.8, 0.1], color: 0xd8b890, position: [-1.2, 1, 0] },
+      { shape: 'box', size: [0.15, 1.8, 0.1], color: 0xd8b890, position: [-0.4, 1, 0] },
+      { shape: 'box', size: [0.15, 1.8, 0.1], color: 0xd8b890, position: [ 0.4, 1, 0] },
+      { shape: 'box', size: [0.15, 1.8, 0.1], color: 0xd8b890, position: [ 1.2, 1, 0] },
+    ]
+  },
+  { id: 'lamp', name: 'Lamp', cat: 'Misc', icon: 'fa-lightbulb',
+    parts: [
+      { shape: 'cylinder', size: [0.8, 0.3, 0.8], color: 0x333333, position: [0, 0.15, 0] },
+      { shape: 'cylinder', size: [0.15, 4, 0.15], color: 0x444444, position: [0, 2, 0] },
+      { shape: 'sphere', size: [1, 1, 1], color: 0xffdd66, position: [0, 4.2, 0] },
+    ]
+  },
+  { id: 'sword', name: 'Sword', cat: 'Misc', icon: 'fa-khanda',
+    parts: [
+      { shape: 'box', size: [0.1, 2.5, 0.6], color: 0xdddddd, position: [0, 2.5, 0] },
+      { shape: 'box', size: [0.2, 0.2, 1.4], color: 0xdaa520, position: [0, 1.2, 0] },
+      { shape: 'cylinder', size: [0.2, 0.9, 0.2], color: 0x6a4a20, position: [0, 0.7, 0] },
+    ]
+  },
+];
+
+/* ==========================================================================
+   THUMBNAIL RENDERER — gera miniatura 3D de cada modelo da Toolbox
+   ========================================================================== */
+const ToolboxThumbnails = (function () {
+  let renderer = null;
+  let scene    = null;
+  let camera   = null;
+  const cache  = new Map();
+  const SIZE   = 128;
+
+  function ensure() {
+    if (renderer) return;
+    const canvas = document.createElement('canvas');
+    canvas.width = SIZE;
+    canvas.height = SIZE;
+
+    renderer = new THREE.WebGLRenderer({
+      canvas, antialias: true, alpha: true, preserveDrawingBuffer: true
+    });
+    renderer.setPixelRatio(2);
+    renderer.setSize(SIZE, SIZE, false);
+    renderer.setClearColor(0x000000, 0);
+    if (THREE.sRGBEncoding !== undefined) renderer.outputEncoding = THREE.sRGBEncoding;
+
+    scene = new THREE.Scene();
+
+    scene.add(new THREE.AmbientLight(0xffffff, 0.75));
+    const key = new THREE.DirectionalLight(0xffffff, 1.05);
+    key.position.set(4, 6, 5);
+    scene.add(key);
+    const fill = new THREE.DirectionalLight(0xaac8ff, 0.45);
+    fill.position.set(-4, 2, -5);
+    scene.add(fill);
+    const rim = new THREE.DirectionalLight(0xffe0a0, 0.35);
+    rim.position.set(-2, 3, 5);
+    scene.add(rim);
+
+    camera = new THREE.PerspectiveCamera(32, 1, 0.05, 5000);
+  }
+
+  function makeMesh(shape, size, color) {
+    const [sx, sy, sz] = size;
+    let geo;
+    switch (shape) {
+      case 'sphere':
+        geo = new THREE.SphereGeometry(sx / 2, 20, 14);
+        break;
+      case 'cylinder':
+        geo = new THREE.CylinderGeometry(sx / 2, sx / 2, sy, 20);
+        break;
+      case 'torus':
+        geo = new THREE.TorusGeometry(sx / 2, sy / 4, 12, 28);
+        break;
+      case 'wedge': {
+        geo = new THREE.BufferGeometry();
+        const v = new Float32Array([
+          -sx/2,0,-sz/2,  sx/2,0,-sz/2,  sx/2,0,sz/2,
+          -sx/2,0,-sz/2,  sx/2,0,sz/2,  -sx/2,0,sz/2,
+          -sx/2,0,-sz/2,  sx/2,0,-sz/2,  sx/2,sy,-sz/2,
+          -sx/2,0,-sz/2,  sx/2,sy,-sz/2,-sx/2,sy,-sz/2,
+          -sx/2,0,-sz/2, -sx/2,sy,-sz/2,-sx/2,0,sz/2,
+           sx/2,0,-sz/2, sx/2,0,sz/2,   sx/2,sy,-sz/2,
+           sx/2,sy,-sz/2, sx/2,0,sz/2,  sx/2,sy,-sz/2,
+          -sx/2,sy,-sz/2, sx/2,sy,-sz/2,-sx/2,0,sz/2,
+           sx/2,sy,-sz/2, sx/2,0,sz/2, -sx/2,0,sz/2
+        ]);
+        geo.setAttribute('position', new THREE.BufferAttribute(v, 3));
+        geo.computeVertexNormals();
+        break;
+      }
+      default:
+        geo = new THREE.BoxGeometry(sx, sy, sz);
+    }
+    const mat = new THREE.MeshStandardMaterial({
+      color: color !== undefined ? color : 0x4fa8d8,
+      roughness: 0.8,
+      metalness: 0.08
+    });
+    return new THREE.Mesh(geo, mat);
+  }
+
+  function render(model) {
+    if (cache.has(model.id)) return cache.get(model.id);
+    try {
+      ensure();
+
+      // limpa tudo que não for luz
+      const keep = [];
+      for (let i = scene.children.length - 1; i >= 0; i--) {
+        const c = scene.children[i];
+        if (c.isLight) continue;
+        scene.remove(c);
+      }
+
+      const group = new THREE.Group();
+      for (const p of model.parts || []) {
+        const mesh = makeMesh(
+          p.shape || 'box',
+          p.size || [1, 1, 1],
+          p.color
+        );
+        const pos = p.position || [0, 0, 0];
+        mesh.position.set(pos[0], pos[1], pos[2]);
+        if (p.rotation) mesh.rotation.set(p.rotation[0], p.rotation[1], p.rotation[2]);
+        if (p.scale)    mesh.scale.set(p.scale[0], p.scale[1], p.scale[2]);
+        group.add(mesh);
+      }
+      scene.add(group);
+
+      // bounding box
+      const box = new THREE.Box3().setFromObject(group);
+      if (box.isEmpty()) {
+        cache.set(model.id, null);
+        return null;
+      }
+      const center = new THREE.Vector3();
+      box.getCenter(center);
+      const dims = new THREE.Vector3();
+      box.getSize(dims);
+      const maxDim = Math.max(dims.x, dims.y, dims.z) || 1;
+
+      // camera isométrica (3/4)
+      const dirVec = new THREE.Vector3(1, 0.75, 1).normalize();
+      const dist   = maxDim * 2.4;
+      camera.position.copy(center).addScaledVector(dirVec, dist);
+      camera.lookAt(center);
+      camera.near = Math.max(0.01, dist * 0.01);
+      camera.far  = dist * 10;
+      camera.updateProjectionMatrix();
+
+      // pequena margem: também afasta um pouco pra caber tudo
+      camera.position.copy(center).addScaledVector(dirVec, dist * 1.05);
+      camera.lookAt(center);
+      camera.updateProjectionMatrix();
+
+      renderer.render(scene, camera);
+      const url = renderer.domElement.toDataURL('image/png');
+
+      scene.remove(group);
+      group.traverse(o => {
+        if (o.geometry) o.geometry.dispose();
+        if (o.material) o.material.dispose();
+      });
+
+      cache.set(model.id, url);
+      return url;
+    } catch (e) {
+      console.warn('[toolbox] thumbnail falhou para', model.id, e);
+      cache.set(model.id, null);
+      return null;
+    }
+  }
+
+  return { render };
+})();
+
+function setupToolbox() {
+  const winEl   = document.getElementById('toolboxWindow');
+  const actEl   = document.getElementById('activity-toolbox');
+  const catEl   = document.getElementById('toolboxCategories');
+  const itemsEl = document.getElementById('toolboxItems');
+  const searchEl= document.getElementById('toolboxSearchInput');
+  const closeEl = document.getElementById('toolboxClose');
+  const handle  = document.getElementById('toolboxResizeHandle');
+  if (!winEl || !actEl || !catEl || !itemsEl) return;
+
+  const CATEGORIES = ['All', 'Parts', 'Buildings', 'Nature', 'Furniture', 'Vehicles', 'Misc'];
+  let activeCat  = 'All';
+  let searchTerm = '';
+
+  function renderCategories() {
+    catEl.innerHTML = CATEGORIES.map(c =>
+      '<div class="toolbox-cat' + (c === activeCat ? ' active' : '') + '" data-cat="' + c + '">' + c + '</div>'
+    ).join('');
+    catEl.querySelectorAll('.toolbox-cat').forEach(el => {
+      el.addEventListener('click', () => {
+        activeCat = el.dataset.cat;
+        renderCategories();
+        renderItems();
+      });
+    });
+  }
+
+  function renderItems() {
+    const term = searchTerm.trim().toLowerCase();
+    const list = TOOLBOX_MODELS.filter(m => {
+      if (activeCat !== 'All' && m.cat !== activeCat) return false;
+      if (term && m.name.toLowerCase().indexOf(term) === -1) return false;
+      return true;
+    });
+    if (list.length === 0) {
+      itemsEl.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#666;padding:20px 0;font-size:11px;">Nenhum modelo encontrado</div>';
+      return;
+    }
+
+    itemsEl.innerHTML = list.map(m =>
+      '<div class="toolbox-item" data-model-id="' + m.id + '" title="' + m.name + '">' +
+        '<div class="tb-thumb">' +
+          '<div class="tb-loading"></div>' +
+        '</div>' +
+        '<div class="tb-name">' + m.name + '</div>' +
+      '</div>'
+    ).join('');
+
+    // gera as miniaturas (uma por uma, em requestAnimationFrame para não travar)
+    let idx = 0;
+    function nextThumb() {
+      if (idx >= list.length) return;
+      const m = list[idx++];
+      const node = itemsEl.querySelector('.toolbox-item[data-model-id="' + m.id + '"] .tb-thumb');
+      if (node) {
+        const url = ToolboxThumbnails.render(m);
+        if (url) {
+          node.innerHTML = '<img src="' + url + '" alt="' + m.name + '" draggable="false">';
+        } else {
+          node.innerHTML = '<i class="fa-solid ' + m.icon + ' tb-fallback"></i>';
+        }
+      }
+      requestAnimationFrame(nextThumb);
+    }
+    requestAnimationFrame(nextThumb);
+
+    itemsEl.querySelectorAll('.toolbox-item').forEach(el => {
+      el.addEventListener('click', () => {
+        const m = TOOLBOX_MODELS.find(x => x.id === el.dataset.modelId);
+        if (m) spawnModel(m);
+      });
+    });
+  }
+
+  function spawnModel(model) {
+    try {
+      const cam = Studio.camera;
+      const fwd = new THREE.Vector3(0, 0, -1)
+        .applyEuler(new THREE.Euler(0, cam.yaw, 0, 'YXZ'));
+      fwd.y = 0;
+      if (fwd.lengthSq() < 0.001) fwd.set(0, 0, -1);
+      fwd.normalize();
+      const spawn = cam.pos.clone().addScaledVector(fwd, 8);
+      const baseX = Math.round(spawn.x);
+      const baseZ = Math.round(spawn.z);
+
+      for (const p of model.parts) {
+        const pos = p.position || [0, 0, 0];
+        Studio.addPart({
+          shape: p.shape || 'box',
+          size:  p.size  || [1, 1, 1],
+          color: p.color !== undefined ? p.color : 0x4fa8d8,
+          position: [baseX + pos[0], pos[1], baseZ + pos[2]],
+          rotation: p.rotation || [0, 0, 0],
+          scale:    p.scale    || [1, 1, 1],
+          collidable: p.collidable !== false
+        });
+      }
+      showToast('Adicionado: ' + model.name);
+    } catch (e) {
+      console.error('[toolbox] spawnModel falhou:', e);
+      showToast('Erro ao adicionar modelo');
+    }
+  }
+
+  function setOpen(open) {
+    winEl.classList.toggle('hidden', !open);
+    actEl.classList.toggle('inactive', !open);
+  }
+  // expõe pro botão da ribbon
+  window.__setToolboxOpen = setOpen;
+  window.__toggleToolbox = () => setOpen(winEl.classList.contains('hidden'));
+
+  actEl.addEventListener('click', () => setOpen(winEl.classList.contains('hidden')));
+  if (closeEl) closeEl.addEventListener('click', () => setOpen(false));
+
+  if (searchEl) {
+    searchEl.addEventListener('input', (e) => {
+      searchTerm = e.target.value;
+      renderItems();
+    });
+  }
+
+  // Resize horizontal
+  let isResizing = false, startX = 0, startW = 0;
+  if (handle) {
+    handle.addEventListener('mousedown', (e) => {
+      isResizing = true;
+      startX = e.clientX;
+      startW = winEl.offsetWidth;
+      handle.classList.add('active');
+      document.body.style.cursor = 'ew-resize';
+      document.body.style.userSelect = 'none';
+      e.preventDefault();
+      e.stopPropagation();
+    });
+    document.addEventListener('mousemove', (e) => {
+      if (!isResizing) return;
+      const delta = e.clientX - startX;
+      let w = startW + delta;
+      if (w < 180) w = 180;
+      const maxW = Math.min(window.innerWidth / 2, 520);
+      if (w > maxW) w = maxW;
+      winEl.style.width = w + 'px';
+    });
+    document.addEventListener('mouseup', () => {
+      if (isResizing) {
+        isResizing = false;
+        handle.classList.remove('active');
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+      }
+    });
+  }
+
+  renderCategories();
+  renderItems();
+  setOpen(true);
 }
 
 function setupGUIBuilder() {
@@ -8614,9 +9850,6 @@ function replaceTreeWithRepo(newRoot, fileContentsMap) {
 
 function newExplorerId() { return 'id-' + Math.random().toString(36).slice(2, 10); }
 
-/* ==========================================================================
-   STUDIO ⇄ EDITOR
-   ========================================================================== */
 const editorFrameEl = document.getElementById('editorFrame');
 const viewportEl    = document.getElementById('viewport');
 let paneMode = 'viewport';
@@ -8629,6 +9862,7 @@ function showViewportPane() {
   Studio.start();
   if (!viewportEl.hasAttribute('tabindex')) viewportEl.setAttribute('tabindex', '-1');
   setTimeout(() => { try { viewportEl.focus({ preventScroll: true }); } catch(e){} }, 60);
+  try { Splash.setTaskMsg('studio', 'Cena 3D pronta'); Splash.completeTask('studio'); } catch(e){}
 }
 
 function showEditorPane() {
@@ -8639,9 +9873,6 @@ function showEditorPane() {
   setTimeout(() => { if (monacoEditor) monacoEditor.focus(); }, 0);
 }
 
-/* ==========================================================================
-   PLAY / STOP
-   ========================================================================== */
 window.__enterPlayFromStudio = function() {
   Studio.setPlayMode(true);
   showPreviewForScope('client');
@@ -8652,9 +9883,6 @@ window.__exitPlayFromStudio = function() {
   hidePreview();
 };
 
-/* ==========================================================================
-   WORKSPACE ↔ parts
-   ========================================================================== */
 (function wireWorkspaceParts() {
   function workspaceNode() {
     return [...document.querySelectorAll('.tree-view > .tree-node')]
@@ -8674,8 +9902,6 @@ window.__exitPlayFromStudio = function() {
       if (!ws) { console.warn('[studio] Workspace node não encontrado'); return; }
       const wrap = ensureChildrenWrap(ws);
 
-      // Remove SÓ os nós gerenciados por este módulo.
-      // Preserva os nós criados por scripts (data-user-part="1").
       const toRemove = [];
       for (let i = 0; i < wrap.children.length; i++) {
         const c = wrap.children[i];
@@ -8684,11 +9910,9 @@ window.__exitPlayFromStudio = function() {
       }
       toRemove.forEach(c => c.remove());
 
-      // Descobre todos os IDs de groups válidos
       const groupIds = new Set();
       for (const [gid] of Studio.groups) groupIds.add(gid);
 
-      // Indexa groups e parts pelo parentId (null / inexistente vira '__root__')
       const groupsByParent = new Map();
       const partsByParent  = new Map();
       for (const [, g] of Studio.groups) {
@@ -8802,7 +10026,6 @@ window.__exitPlayFromStudio = function() {
       }
       walk('__root__', wrap);
 
-      // Reaplica seleção visual
       if (Studio.selectedId) {
         const sel =
           wrap.querySelector('.tree-node[data-studio-part-id="'  + Studio.selectedId + '"]') ||
@@ -8819,9 +10042,6 @@ window.__exitPlayFromStudio = function() {
   Studio.onPartsChange(() => renderWorkspaceParts());
 })();
 
-/* ==========================================================================
-   WORKSPACE ↔ parts criados por scripts
-   ========================================================================== */
 (function wireUserScriptParts() {
   const userParts = new Map();
 
@@ -8926,9 +10146,6 @@ window.__exitPlayFromStudio = function() {
   }
 })();
 
-/* ==========================================================================
-   INIT
-   ========================================================================== */
 initTree();
 updateSelectionInfo();
 setupKeyboardShortcuts();
@@ -8950,6 +10167,7 @@ document.addEventListener('keydown', (e) => {
 setupNexusAI();
 setupGUIBuilder();
 setupGitHubImport();
+setupToolbox();
 
 if (typeof window.require === 'function') {
   window.require(['vs/editor/editor.main'], () => {
@@ -9000,9 +10218,6 @@ document.getElementById('activity-viewport').addEventListener('click', () => {
   showViewportPane();
 });
 
-/* ==========================================================================
-   STUDIO TOPBAR
-   ========================================================================== */
 (function setupStudioTopbar() {
   const topbar = document.getElementById('studioTopbar');
   if (!topbar) return;
@@ -9170,6 +10385,9 @@ document.getElementById('activity-viewport').addEventListener('click', () => {
   on('rb-find', () => { searchInput.focus(); searchInput.select(); });
 
   on('rb-toggle-explorer', () => explorerWindow.classList.toggle('hidden'));
+  on('rb-toggle-toolbox', () => {
+    if (typeof window.__toggleToolbox === 'function') window.__toggleToolbox();
+  });
   on('rb-toggle-viewport', () => showViewportPane());
   on('rb-clear-console',   () => clearStudioConsoleLog());
   on('rb-toggle-console',  () => togglePreviewConsole());
